@@ -4,17 +4,23 @@ module.exports = {
     node: true,
   },
   extends: [
+    // 暂时注释 不习惯标签换行  'plugin:vue/recommended' // essential,
     'plugin:vue/essential',
     '@vue/airbnb',
     '@vue/typescript/recommended',
   ],
-  parserOptions: {
+parserOptions: {
     ecmaVersion: 2020,
+  },
+  globals: {
+    Konva: false,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    "class-methods-use-this": "off",
+    'class-methods-use-this': 'off',
+    'max-len': ['error', { code: 1500 }],
+    'vue/html-indent': ['error', 4],
   },
   overrides: [
     {

@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
-    <div id="hello-world"></div>
-  </div>
+    <div class="home">
+        <img alt="Vue logo" src="../assets/logo.png">
+        <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
+        <div id="hello-world"></div>
+    </div>
 </template>
 
 <script lang="ts">
