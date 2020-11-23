@@ -21,6 +21,7 @@ parserOptions: {
     'class-methods-use-this': 'off',
     'max-len': ['error', { code: 1500 }],
     'vue/html-indent': ['error', 4],
+    "no-param-reassign": 0,
   },
   overrides: [
     {

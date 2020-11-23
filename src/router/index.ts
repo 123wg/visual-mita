@@ -8,6 +8,17 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Test',
     component: () => import('@/views/test/Index.vue'),
+    meta: {
+      title: '基础图形测试',
+    },
+  },
+  {
+    path: '/event',
+    name: 'Event',
+    component: () => import('@/views/test/Event.vue'),
+    meta: {
+      title: '事件测试',
+    },
   },
 //   {
 //     path: '/about',
