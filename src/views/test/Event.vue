@@ -146,6 +146,12 @@ export default Vue.extend({
         console.log(evt.target);
         console.log(`位置${JSON.stringify(stage.getPointerPosition())}`);
       });
+
+      //   12.键盘事件
+      const container = stage.container();
+      container.tabIndex = 1;
+      container.focus();
+
       group.add(circle);
       layer.add(group);
       layer.add(circle);
