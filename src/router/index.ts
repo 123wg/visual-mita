@@ -20,6 +20,15 @@ const routes: Array<RouteConfig> = [
       title: '事件测试',
     },
   },
+  {
+    path: '/drag',
+    name: 'Drag',
+    component: () => import('@/views/test/Drag.vue'),
+    meta: {
+      title: '拖放测试',
+    },
+  },
+
 //   {
 //     path: '/about',
 //     name: 'About',

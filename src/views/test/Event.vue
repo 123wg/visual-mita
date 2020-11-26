@@ -139,7 +139,7 @@ export default Vue.extend({
       });
 
       //   10.模拟自己触发事件
-      circle.fire('click');
+      // circle.fire('click');
 
       //   11.stage 触发事件
       stage.on('click', (evt) => {
@@ -149,8 +149,24 @@ export default Vue.extend({
 
       //   12.键盘事件
       const container = stage.container();
-      container.tabIndex = 1;
-      container.focus();
+      container.tabIndex = 1; // 使场景可以聚焦
+      container.focus(); // 聚焦
+      container.addEventListener('keydown', (e) => {
+        console.log(e.keyCode);
+        if (e.keyCode === 37) {
+          circle.x(circle.x() - 5);
+        }
+        if (e.keyCode === 39) {
+          circle.x(circle.x() + 5);
+        }
+        if (e.keyCode === 38) {
+          circle.y(circle.y() - 5);
+        }
+        if (e.keyCode === 40) {
+          circle.y(circle.y() + 5);
+        }
+        layer.batchDraw();
+      });
 
       group.add(circle);
       layer.add(group);
