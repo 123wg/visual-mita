@@ -136,6 +136,9 @@ export default {
         stroke: 'black',
         strokeWidth: 2,
       });
+      const groupYellow = new Konva.Group({
+        x: stage.width() / 2,
+      });
       groupBlue.add(blueRect).add(blueText);
       layer.add(groupBlue);
       layer.add(text1);
