@@ -44,6 +44,38 @@ const routes: Array<RouteConfig> = [
       title: '形状变换测试2',
     },
   },
+  {
+    path: '/tween',
+    name: 'Tween',
+    component: () => import('@/views/test/Tween.vue'),
+    meta: {
+      title: '补间动画',
+    },
+  },
+  {
+    path: '/animation',
+    name: 'Animation',
+    component: () => import('@/views/test/Animation.vue'),
+    meta: {
+      title: '补间动画',
+    },
+  },
+  {
+    path: '/select',
+    name: 'Select',
+    component: () => import('@/views/test/Select.vue'),
+    meta: {
+      title: '选择',
+    },
+  },
+  {
+    path: '/export',
+    name: 'Export',
+    component: () => import('@/views/test/Export.vue'),
+    meta: {
+      title: '导入导出',
+    },
+  },
 
 //   {
 //     path: '/about',
