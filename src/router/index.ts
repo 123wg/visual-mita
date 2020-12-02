@@ -28,6 +28,22 @@ const routes: Array<RouteConfig> = [
       title: '拖放测试',
     },
   },
+  {
+    path: '/transform1',
+    name: 'Transform',
+    component: () => import('@/views/test/Transform1.vue'),
+    meta: {
+      title: '形状变换测试1',
+    },
+  },
+  {
+    path: '/transform2',
+    name: 'Transform2',
+    component: () => import('@/views/test/Transform2.vue'),
+    meta: {
+      title: '形状变换测试2',
+    },
+  },
 
 //   {
 //     path: '/about',

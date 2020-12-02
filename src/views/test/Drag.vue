@@ -137,9 +137,40 @@ export default {
         strokeWidth: 2,
       });
       const groupYellow = new Konva.Group({
-        x: stage.width() / 2,
+        x: stage.width() / 2 + 50,
+        y: 90,
+        draggable: true,
+        dragBoundFunc(pos) {
+          const radius = 30;
+          const x = stage.width() / 2;
+          const y = 90;
+          // eslint-disable-next-line no-restricted-properties
+          const scale = radius / Math.sqrt(Math.pow(pos.y - y, 2) + Math.pow(pos.x - x, 2));
+          if (scale < 1) {
+            return {
+              x: (pos.x - x) * scale + x,
+              y: (pos.y - y) * scale + y,
+            };
+          }
+          return pos;
+        },
       });
+      const yellowText = new Konva.Text({
+        text: 'yellow text',
+        fill: 'black',
+        fontSize: 18,
+        padding: 10,
+      });
+      const yellowRect = new Konva.Rect({
+        width: yellowText.width(),
+        height: yellowText.height(),
+        stroke: 'black',
+        fill: 'yellow',
+        strokeWidth: 4,
+      });
+      groupYellow.add(yellowRect).add(yellowText);
       groupBlue.add(blueRect).add(blueText);
+      layer.add(groupYellow);
       layer.add(groupBlue);
       layer.add(text1);
       layer.add(text);
