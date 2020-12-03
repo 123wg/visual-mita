@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "gifler": "^0.1.0",
+    "gifuct-js": "^2.0.0",
     "stylelint": "^13.8.0",
     "stylelint-config-recess-order": "^2.3.0",
     "stylelint-config-standard": "^20.0.0",

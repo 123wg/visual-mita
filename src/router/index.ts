@@ -76,6 +76,14 @@ const routes: Array<RouteConfig> = [
       title: '导入导出',
     },
   },
+  {
+    path: '/gif',
+    name: 'Gif',
+    component: () => import('@/views/test/Gif.vue'),
+    meta: {
+      title: '加载Gif',
+    },
+  },
 
 //   {
 //     path: '/about',
