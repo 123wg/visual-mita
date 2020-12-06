@@ -5,6 +5,14 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
+    path: '/mita',
+    name: 'Mita',
+    component: () => import('@/views/Mita.vue'),
+    meta: {
+      title: '可视化大屏首页',
+    },
+  },
+  {
     path: '/',
     name: 'Test',
     component: () => import('@/views/test/Index.vue'),
@@ -80,6 +88,14 @@ const routes: Array<RouteConfig> = [
     path: '/gif',
     name: 'Gif',
     component: () => import('@/views/test/Gif.vue'),
+    meta: {
+      title: '加载Gif',
+    },
+  },
+  {
+    path: '/pool',
+    name: 'Pool',
+    component: () => import('@/views/baseShape/Pool.vue'),
     meta: {
       title: '加载Gif',
     },

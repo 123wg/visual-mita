@@ -78,12 +78,20 @@ export default {
 
         // draw resulted canvas into the stage as Konva.Image
         const image = new Konva.Image({
-          image: canvas,
-          draggable: true,
-          width:200,
-          height:200
+            x:20,
+            y:50,
+            image: canvas,
+            draggable: true,
+            width:200,
+            height:200,
+            //   可以任意添加自定义属性 序列化的时候 用自定义属性保存图片
+            // 配置项也可以全部保存啊 卧槽
+            // 先写配置 后期修改为面向对象生成的方式
+            imgSrc:'test.gif',
         });
         layer.add(image);
+        const json = stage.toJSON();
+        console.log(json);
       }
     },
   },
