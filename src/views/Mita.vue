@@ -108,7 +108,7 @@ export default {
     */
     addFlowLineEdit(e,layer) {
         // 查找所有拖拽元素 销毁
-        const circleArrt = e.find("Circle")
+        const circleArrt = layer.find("Circle")
         circleArrt.each(obj=>{
             obj.destroy()
         })
@@ -130,20 +130,20 @@ export default {
             const move = i*2;
             const moves = linePoints[move];
             const movee = linePoints[move+1];
-            const drag = move+1;
+            const drag = i;
             const dragP = drag*2;
             // 创建移动标记
             const moveCircle = new Konva.Circle({
-                x: moves+position.x,
-                y: movee+position.y,
+                x: moves,
+                y: movee,
                 radius: strokeWidth/2+5,
                 stroke:'yellow',
                 strokeWidth:2,
                 name:'line_anchor',
                 draggable: true,
-                indexLabel:move
+                indexLabel:dragP
             })
-            layer.add(moveCircle)
+            e.add(moveCircle)
             layer.draw()
 
             moveCircle.on('dragmove',evt=>{
@@ -158,16 +158,16 @@ export default {
                 const preCirclex = dragIndex-2;
                 const preCircley = dragIndex-1;
                 const behindx = dragIndex+2;
-                const hebindy = dragIndex+3;
+                const behindy = dragIndex+3;
                 if(preCircle !== undefined) {
-                    preCircle.x((linePoints[preCirclex]+x+position.x)/2)
-                    preCircle.y((linePoints[preCircley]+y+position.y)/2)
+                    preCircle.x((linePoints[preCirclex]+x)/2)
+                    preCircle.y((linePoints[preCircley]+y)/2)
                 }
                 if(behindCircle !== undefined) {
-                    behindCircle.x((linePoints[preCirclex]+x)/2)
-                    behindCircle.y((linePoints[preCircley]+y)/2)
+                    behindCircle.x((linePoints[behindx]+x)/2)
+                    behindCircle.y((linePoints[behindy]+y)/2)
                 }
-                linePoints.splice(dragIndex,2, x-position.x, y-position.y);
+                linePoints.splice(dragIndex,2, x, y);
                 curLine.points(linePoints);
                 frontLine.points(linePoints);
                 layer.draw();
@@ -175,13 +175,13 @@ export default {
 
 
 
-            if(drag<=linePoints.length/2) {
+            if(drag!==0) {
                 const drags = (linePoints[dragP-2]+linePoints[dragP])/2;
                 const drage = (linePoints[dragP-1]+linePoints[dragP+1])/2;
                 // 创建拖动标记
                 const dragCircle = new Konva.Circle({
-                    x: drags+position.x,
-                    y: drage+position.y,
+                    x: drags,
+                    y: drage,
                     radius: strokeWidth/2+5,
                     stroke:'red',
                     strokeWidth:2,
@@ -191,12 +191,13 @@ export default {
 
                  dragCircle.on('dragend',(evt)=>{
                      const obj = evt.currentTarget;
-                     linePoints.splice(dragP, 0, obj.x()-position.x, obj.y()-position.y);
+                     linePoints.splice(dragP, 0, obj.x(), obj.y());
                      curLine.points(linePoints);
                      frontLine.points(linePoints);
+                     console.log(linePoints);
                      that.addFlowLineEdit(e,layer)
                  })
-                 layer.add(dragCircle)
+                 e.add(dragCircle)
                  layer.draw()
             }
 
