@@ -97,7 +97,15 @@ const routes: Array<RouteConfig> = [
     name: 'Pool',
     component: () => import('@/views/baseShape/Pool.vue'),
     meta: {
-      title: '加载Gif',
+      title: '蓄水池',
+    },
+  },
+  {
+    path: '/baseLine',
+    name: 'baseLine',
+    component: () => import('@/views/baseShape/BaseLine.vue'),
+    meta: {
+      title: '基本线条',
     },
   },
 

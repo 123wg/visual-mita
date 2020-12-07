@@ -30,6 +30,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import shapeConfig from '@/common/shapeConfig';
 
 export default {
@@ -46,6 +47,7 @@ export default {
   watch: {},
   methods: {
     init() {
+      // 1.舞台初始化
       const stage = new Konva.Stage({
         width: 900,
         height: 600,
@@ -53,6 +55,7 @@ export default {
       });
       const layer = new Konva.Layer();
       stage.add(layer);
+      //   2.监听拖拽事件
       const con = stage.container();
       con.addEventListener('dragover', (evt) => {
         evt.preventDefault();
@@ -60,12 +63,16 @@ export default {
       con.addEventListener('drop', (evt) => {
         stage.setPointersPositions(evt);
         const s = Konva.Node.create(evt.dataTransfer.getData('shapeJson'));
-        s.position(stage.getPointerPosition());
-        // console.log();
+        if (s.getAttrs().moduleType === 'FLOW_LINE') {
+          s.move(stage.getPointerPosition());
+        } else {
+          s.position(stage.getPointerPosition());
+        }
+
         layer.add(s);
         layer.draw();
       });
-      // 创建变换器
+      // 3.创建变换器
       const tr = new Konva.Transformer({
         nodes: [],
         rotateAnchorOffset: 60,
@@ -75,94 +82,127 @@ export default {
         keepRatio: false,
         enabledAnchors: ['top-left', 'top-center', 'top-right', 'middle-right', 'middle-left', 'bottom-left', 'bottom-center', 'bottom-right'],
       });
-      //  选中矩形框
-      let x1;
-      let x2;
-      let y1;
-      let y2;
-      const selectionRect = new Konva.Rect({
-        fill: 'rgba(0,0,255,0.5)',
-        visible: false,
-      });
-      //  鼠标按下事件
-      stage.on('mousedown touchstart', (e) => {
-        if (e.target !== stage) return;
-        console.log('鼠标按下');
-        x1 = stage.getPointerPosition().x;
-        y1 = stage.getPointerPosition().y;
-        x2 = stage.getPointerPosition().x;
-        y2 = stage.getPointerPosition().y;
-
-        selectionRect.visible(true);
-        selectionRect.width(0);
-        selectionRect.height(0);
-        layer.draw();
-      });
-
-      //   // 鼠标移动事件
-      stage.on('mousemove touchmove', () => {
-        if (!selectionRect.visible()) return;
-        x2 = stage.getPointerPosition().x;
-        y2 = stage.getPointerPosition().y;
-        selectionRect.setAttrs({
-          x: Math.min(x1, x2),
-          y: Math.min(y1, y2),
-          width: Math.abs(x2 - x1),
-          height: Math.abs(y2 - y1),
-        });
-        layer.batchDraw();
-      });
-
-      stage.on('mouseup touchend', () => {
-        // no nothing if we didn't start selection
-        if (!selectionRect.visible()) {
-          return;
-        }
-        console.log('鼠标抬起');
-        // update visibility in timeout, so we can check it in click event
-        setTimeout(() => {
-          selectionRect.visible(false);
-          layer.batchDraw();
-        });
-
-        const shapes = stage.find('.rect').toArray();
-        const box = selectionRect.getClientRect();
-        // 过滤出有交叉点的图形
-        const selected = shapes.filter((shape) => Konva.Util.haveIntersection(box, shape.getClientRect()));
-        tr.nodes(selected);
-        layer.batchDraw();
-      });
 
       stage.on('click tap', (e) => {
-        //  先执行mousedown 事件 在执行点击事件
-        if (selectionRect.visible()) return;
-
-        // 点击空白区域
         if (e.target === stage) {
           tr.nodes([]);
           layer.draw();
           return;
         }
-        // console.log(e.target.parent.getAttr('moduleType'));
-        // 未点击矩形 直接返回
-        if (!e.target.parent.hasName('mita_module_group')) return;
-        console.log('点击');
-        // 是否按下shift或ctrl
-        const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
-        const isSelected = tr.nodes().indexOf(e.target) >= 0;
-        if (!metaPressed && !isSelected) {
-          tr.nodes([e.target]);
-        } else if (metaPressed && isSelected) {
-          const nodes = tr.nodes().slice();
-          nodes.splice(nodes.indexOf(e.target), 1);
-          tr.nodes(nodes);
-        } else if (metaPressed && !isSelected) {
-          const nodes = tr.nodes().concat([e.target]);
-          tr.nodes(nodes);
+        const parent = e.target.getParent();
+        if (parent.attrs.moduleType === 'POOL') {
+          tr.nodes([parent]);
+          layer.draw();
         }
-        layer.draw();
+        if (parent.attrs.moduleType === 'FLOW_LINE') {
+          this.addFlowLineEdit(parent,layer);
+        }
       });
       layer.add(tr);
+    },
+
+    /**
+    *@description: 流动线条编辑
+    *@param{}
+    *@return:
+    */
+    addFlowLineEdit(e,layer) {
+        // 查找所有拖拽元素 销毁
+        const circleArrt = e.find("Circle")
+        circleArrt.each(obj=>{
+            obj.destroy()
+        })
+        layer.draw();
+        const that = this;
+        // 获取当前位置
+        const position = {
+            x:e.attrs.x,
+            y:e.attrs.y
+        }
+        // 获取背景线条元素
+        const curLine = e.find('.flowline_bc')[0];
+        const frontLine = e.find('.flowline_front')[0];
+        // 线条点位
+        const linePoints = curLine.points();
+        // 线条宽度
+        const strokeWidth = curLine.strokeWidth();
+        for(let i=0;i<linePoints.length/2;i+=1) {
+            const move = i*2;
+            const moves = linePoints[move];
+            const movee = linePoints[move+1];
+            const drag = move+1;
+            const dragP = drag*2;
+            // 创建移动标记
+            const moveCircle = new Konva.Circle({
+                x: moves+position.x,
+                y: movee+position.y,
+                radius: strokeWidth/2+5,
+                stroke:'yellow',
+                strokeWidth:2,
+                name:'line_anchor',
+                draggable: true,
+                indexLabel:move
+            })
+            layer.add(moveCircle)
+            layer.draw()
+
+            moveCircle.on('dragmove',evt=>{
+                const obj = evt.currentTarget;
+                const dragIndex = obj.attrs.indexLabel;
+                // 当前移动的坐标
+                const x = obj.x();
+                const y = obj.y();
+                const preCircle = layer.find('.line_anchor'+(dragIndex-1))[0]
+                const behindCircle = layer.find('.line_anchor'+(dragIndex+1))[0]
+                // 新坐标
+                const preCirclex = dragIndex-2;
+                const preCircley = dragIndex-1;
+                const behindx = dragIndex+2;
+                const hebindy = dragIndex+3;
+                if(preCircle !== undefined) {
+                    preCircle.x((linePoints[preCirclex]+x+position.x)/2)
+                    preCircle.y((linePoints[preCircley]+y+position.y)/2)
+                }
+                if(behindCircle !== undefined) {
+                    behindCircle.x((linePoints[preCirclex]+x)/2)
+                    behindCircle.y((linePoints[preCircley]+y)/2)
+                }
+                linePoints.splice(dragIndex,2, x-position.x, y-position.y);
+                curLine.points(linePoints);
+                frontLine.points(linePoints);
+                layer.draw();
+            })
+
+
+
+            if(drag<=linePoints.length/2) {
+                const drags = (linePoints[dragP-2]+linePoints[dragP])/2;
+                const drage = (linePoints[dragP-1]+linePoints[dragP+1])/2;
+                // 创建拖动标记
+                const dragCircle = new Konva.Circle({
+                    x: drags+position.x,
+                    y: drage+position.y,
+                    radius: strokeWidth/2+5,
+                    stroke:'red',
+                    strokeWidth:2,
+                    name:'line_anchor'+(dragP-1),
+                    draggable: true,
+                 })
+
+                 dragCircle.on('dragend',(evt)=>{
+                     const obj = evt.currentTarget;
+                     linePoints.splice(dragP, 0, obj.x()-position.x, obj.y()-position.y);
+                     curLine.points(linePoints);
+                     frontLine.points(linePoints);
+                     that.addFlowLineEdit(e,layer)
+                 })
+                 layer.add(dragCircle)
+                 layer.draw()
+            }
+
+        }
+        // 查看所有的点数量
+        // 有两个点 产生循环产生两个点
     },
 
     /**

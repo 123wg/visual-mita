@@ -375,7 +375,8 @@ function getStageStr() {
                         o = null, stageOper.layer.draw()
                     }), stageOper.layer.draw()
                 }
-            }), this.stage.on("click tap", function(e) {
+            }),
+            this.stage.on("click tap", function(e) {
                 if (null == o) {
                     if ($("#zjsx").html(""), e.target === stageOper.stage) {
                         try {
@@ -459,7 +460,11 @@ function getStageStr() {
                 }), stageOper.layer.draw(), "BASELINE" == t) {
                 var r = e.find(".edit_anchor");
                 if (r.length > 0) return;
-                for (var i = e.find(".line1")[0], o = i.points(), n = i.strokeWidth(), l = 0; l < o.length / 2; l++) {
+                for (var i = e.find(".line1")[0],
+                o = i.points(),
+                n = i.strokeWidth(),
+                l = 0;
+                l < o.length / 2; l++) {
                     var d = 2 * l,
                         s = d + 1,
                         c = o[d],
@@ -522,7 +527,13 @@ function getStageStr() {
                 }), stageOper.layer.draw(), "FLOWLINE" == t) {
                 var r = e.find(".edit_anchor");
                 if (r.length > 0) return;
-                for (var i = e.find(".backgroundLine")[0], o = e.find(".dynamicLine")[0], n = i.points(), l = i.strokeWidth(), d = 0; d < n.length / 2; d++) {
+                for (var i = e.find(".backgroundLine")[0],
+                o = e.find(".dynamicLine")[0],
+                n = i.points(),
+                l = i.strokeWidth(),
+                d = 0;
+                d < n.length / 2;
+                d++) {
                     var s = 2 * d,
                         c = s + 1,
                         u = n[s],

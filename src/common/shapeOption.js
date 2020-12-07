@@ -4,7 +4,7 @@ const ShapeOption = {
     moduleAttr: [], // 内部属性集合
   },
 
-  //   蓄水池名称
+  // 蓄水池------------------------------------------------start
   hasPoolName() {
     this.commonName();
   },
@@ -38,6 +38,44 @@ const ShapeOption = {
   hasPoolWaterColor(attrWhere = 'this') {
     this.commonFillColor('水的颜色', attrWhere);
   },
+  //  蓄水池---------------------------------------------end
+
+  //   流动线条-------------------------------------------start
+  hasFlowLineName() {
+    this.commonName();
+  },
+  hasFlowLineModuleType() {
+    this.commonModuleType('FLOW_LINE');
+  },
+  //   绑定设备
+  hasFlowLineBindDevice(attrWhere = 'this') {
+    this.commonBindDevice('setFlowLineValue', attrWhere);
+  },
+  //  动画条件
+  hasFlowAnim(attrWhere = 'this') {
+    this.optionObj.where = "[{direction:'',where:{min:'',max:''}}]";
+    this.createModuleAttr('动画条件', 'where', 'whereSelectTable', attrWhere);
+  },
+  //  粗细
+  hasFlowWeight(attrWhere = 'this') {
+    this.createModuleAttr('粗细', 'strokeWidth', 'input', attrWhere);
+  },
+  //  线条底色
+  hasFlowBcColor(attrWhere = 'this') {
+    this.createModuleAttr('线条底色', 'stroke', 'color', attrWhere);
+  },
+  //  流动线条颜色
+  hasFlowFlowColor(attrWhere = 'this') {
+    this.createModuleAttr('流动线条颜色', 'stroke', 'color', attrWhere);
+  },
+  //  隐藏条件
+  hasFlowLineHide(attrWhere = 'this') {
+    this.commonHide(attrWhere);
+  },
+  //   闪烁条件
+  hasFlowLineSparkling(attrWhere = 'this') {
+    this.commonSparkLing(attrWhere);
+  },
 
   //  通用name
   commonName() {
@@ -70,6 +108,7 @@ const ShapeOption = {
   //  通用隐藏条件
   commonHide(attrWhere = 'this') {
     this.optionObj.hideWhere = "[{devicecode:'',min:'',max:''}]";
+    this.optionObj.hideMethodCall = 'hideModule';
     this.createModuleAttr('隐藏条件', 'hideWhere', 'hideTable', attrWhere);
   },
   // 通用闪烁条件

@@ -9,6 +9,16 @@ const shapeConfig = [
       },
     ],
   },
+  {
+    groupName: '基本组件',
+    moduleItem: [
+      {
+        imgSrc: '/img/base_line.png',
+        moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule"},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}',
+        moduleName: '直线',
+      },
+    ],
+  },
 ];
 
 export default shapeConfig;
