@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" version="1.1"><defs/>
+    <svg width='100%' height='100%' viewBox="0 0 100 100" databind="databindHide">
+        <linearGradient id='autoId_verticalThermostat_frontGrad' x1='-50%' y1="-50%" x2='100%' y2='100%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color="#FFFFFF"/>
+            <stop  offset='100%' stop-color="#909090"/>
+        </linearGradient>
+        <linearGradient id='autoId_verticalThermostat_screenGrad' x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='150%' stop-color='#9ACD32'/>
+        </linearGradient>
+        <linearGradient id='autoId_verticalThermostat_screenGrad9' x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='150%' stop-color='#ADE8D6'/>
+        </linearGradient>
+        <linearGradient id='autoId_verticalThermostat_buttonGrad' x1='-50%' y1='-50%' x2='100%' y2='100%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color="#FFFFFF"/>
+            <stop  offset='100%' stop-color="#606060"/>
+        </linearGradient>
+
+        <path id="verticalThermostat_top" d="M 10,10 L15,5 L85,5 L80,10" fill="#E0E0E0" />
+        <path id="verticalThermostat_right" d="M 85,5 L85,90 L80,95 L80,10 Z" fill="#909090"/>
+        <path id="verticalThermostat_front" d="M 10,10 L80,10 L80,95 L10,95" style="fill: url('#autoId_verticalThermostat_frontGrad')"/>
+
+        <path id="verticalThermostat_screen" d="M 20,20 L70,20 L70,65 L20,65 Z" style="fill: url('#autoId_verticalThermostat_screenGrad');display:none;" stroke="#808080" stroke-width="1"/>
+        <path id="_verticalThermostat_screen" d="M 20,20 L70,20 L70,65 L20,65 Z" style="fill: url('#autoId_verticalThermostat_screenGrad9');display:block;" stroke="#808080" stroke-width="1"/>
+
+        <svg x="20" y="75"><ellipse cx="10" cy="5" rx="10" ry="5"  style="fill: url('#autoId_verticalThermostat_buttonGrad')"/></svg>
+        <svg x="50" y="75"><ellipse cx="10" cy="5" rx="10" ry="5"  style="fill: url('#autoId_verticalThermostat_buttonGrad')"/></svg>
+
+    </svg>
+
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg"  width="100px" height="100px" version="1.1"><defs/>
+    <svg width='100%' height='100%'  viewBox="35 15 45 45" databind="databindHide">
+
+            <linearGradient id="autoId_digitalgauge_backFrameGrad9" x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+                <stop  offset='-50%' stop-color="#FFFFFF"/>
+                <stop  offset='150%' stop-color="#A9A9A9"/>
+            </linearGradient>
+            <linearGradient id="autoId_digitalgauge_screenDialGrad9" x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+                <stop  offset='-50%' stop-color="#FFFFFF"/>
+                <stop  offset='150%' stop-color="#D3D3D3"/>
+            </linearGradient>
+            <linearGradient id="autoId_digitalgauge_screenGrad9" x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+                <stop  offset='-50%' stop-color='#FFFFFF'/>
+                <stop  offset='150%' stop-color='#9ACD32'/>
+            </linearGradient>
+            <linearGradient id="autoId_digitalgauge_screenGrad10" x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+                <stop  offset='-50%' stop-color='#FFFFFF'/>
+                <stop  offset='150%' stop-color='#ADE8D6'/>
+            </linearGradient>
+
+        <path id="digitalGauge_backFrame" d="M 60,53 A17,17 0 0 0 60,17 A17,17 0 0 0 60,53 Z" style="fill: url('#autoId_digitalgauge_backFrameGrad9')" />
+        <path id="digitalGauge_screenFrame" d="M 55,58 A17,17 0 0 0 55,22 A17,17 0 0 0 55,58 Z" fill="#909090" />
+        <path id="digitalGauge_screenDial" d="M 55,55 A15,15 0 0 0 55,25 A15,15 0 0 0 55,55" style="fill: url('#autoId_digitalgauge_screenDialGrad9')" />
+        <path id="digitalGauge_screen" d="M45,32 L65,32 L65,42 L45,42 Z" style="fill: url('#autoId_digitalgauge_screenGrad9');display:none;" stroke="#808080" stroke-width="1"/>
+        <path id="_digitalGauge_screen" d="M45,32 L65,32 L65,42 L45,42 Z" style="fill: url('#autoId_digitalgauge_screenGrad10');display:block;" stroke="#808080" stroke-width="1"/>
+    </svg>
+</svg>

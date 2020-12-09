@@ -108,6 +108,14 @@ const routes: Array<RouteConfig> = [
       title: '基本线条',
     },
   },
+  {
+    path: '/baseImage',
+    name: 'baseLine',
+    component: () => import('@/views/baseShape/BaseImage.vue'),
+    meta: {
+      title: '基本图片',
+    },
+  },
 
 //   {
 //     path: '/about',

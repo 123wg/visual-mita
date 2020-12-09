@@ -23,6 +23,7 @@ parserOptions: {
     'max-len': ['error', { code: 100000 }],
     'vue/html-indent': ['error', 4],
     "no-param-reassign": 0,
+    "@typescript-eslint/no-this-alias": ["off"]
   },
   overrides: [
     {

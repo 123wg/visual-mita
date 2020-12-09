@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" version="1.1"><defs/>
+    <svg width='100%' height='100%'  viewBox="35 15 45 45" databind="databindHide">
+        <linearGradient id='autoId_gauge_backFrameGrad' x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color="#FFFFFF"/>
+            <stop  offset='150%' stop-color="#A9A9A9"/>
+        </linearGradient>
+        <linearGradient id='autoId_gauge_screenGrad' x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='150%' stop-color='#9ACD32'/>
+        </linearGradient>
+        <linearGradient id='autoId_gauge_screenGrad9' x1='-50%' y1='-50%' x2='150%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='150%' stop-color='#ADE8D6'/>
+        </linearGradient>
+
+        <path id="gauge_backFrame" d="M 60,53 A17,17 0 0 0 60,17 A17,17 0 0 0 60,53 Z" style="fill: url('#autoId_gauge_backFrameGrad')" />
+        <path id="gauge_screenFrame" d="M 55,58 A17,17 0 0 0 55,22 A17,17 0 0 0 55,58 Z" fill="#909090" />
+        <path id="gauge_screen" d="M 55,55 A15,15 0 0 0 55,25 A15,15 0 0 0 55,55"  style="fill: url('#autoId_gauge_screenGrad');display:none;" stroke="#808080" stroke-width="1"/>
+        <path id="_gauge_screen" d="M 55,55 A15,15 0 0 0 55,25 A15,15 0 0 0 55,55"  style="fill: url('#autoId_gauge_screenGrad9');display:block;" stroke="#808080" stroke-width="1"/>
+
+        <path d="M55,25 L 55,28" stroke-width="2" stroke="#909090" stroke-linecap="Round"/>
+        <path d="M55,55 L 55,52" stroke-width="2" stroke="#909090" stroke-linecap="Round"/>
+        <path d="M40,40 L 43,40" stroke-width="2" stroke="#909090" stroke-linecap="Round"/>
+        <path d="M70,40 L 67,40" stroke-width="2" stroke="#909090" stroke-linecap="Round"/>
+
+        <path d="M60,30 L 55,40" stroke-width="2" stroke="#909090" stroke-linecap="Round"/>
+
+    </svg>
+</svg>

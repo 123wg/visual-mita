@@ -76,6 +76,31 @@ const ShapeOption = {
   hasFlowLineSparkling(attrWhere = 'this') {
     this.commonSparkLing(attrWhere);
   },
+  //   流动线条-------------------------------------------start
+
+  //   图片------------------------------------start
+  hasImageName() {
+    this.commonName();
+  },
+  hasImageModuleType() {
+    this.commonModuleType('IMAGE');
+  },
+  hasImageGifModuleType() {
+    this.commonModuleType('GIF');
+  },
+  hasImageSvgModuleType() {
+    this.commonModuleType('SVG');
+  },
+  hasImageUrl(url) {
+    this.optionObj.imageUrl = url;
+  },
+  hasImageHide(attrWhere = 'this') {
+    this.commonHide(attrWhere);
+  },
+  hasImageSparkling(attrWhere = 'this') {
+    this.commonSparkLing(attrWhere);
+  },
+  //   图片------------------------------------end
 
   //  通用name
   commonName() {
@@ -128,7 +153,11 @@ const ShapeOption = {
   },
   // 导出方法
   toObject() {
-    return this.optionObj;
+    const exportObj = { ...this.optionObj };
+    this.optionObj = {
+      moduleAttr: [], // 内部属性集合
+    };
+    return exportObj;
   },
 };
 

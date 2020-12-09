@@ -498,7 +498,8 @@ function getStageStr() {
                                 n = a.x(),
                                 l = a.y();
                             o.splice(2 * r, 0, n, l), i.points(o), stageOper.addLineEdit(e)
-                        }), e.add(y)
+                        }),
+                        e.add(y)
                     }
                     h.on("dragmove", function(t) {
                         var a = t.currentTarget,
@@ -513,7 +514,12 @@ function getStageStr() {
                             m = o[2 * l - 1],
                             g = o[2 * l + 2],
                             y = o[2 * l + 3];
-                        o[2 * l] = r, o[2 * l + 1] = n, i.points(o), "undefined" != typeof c && (c.x(h + (r - h) / 2), c.y(m + (n - m) / 2)), "undefined" != typeof u && (u.x(r + (g - r) / 2), u.y(n + (y - n) / 2)), e.getLayer().batchDraw()
+                        o[2 * l] = r, o[2 * l + 1] = n,
+                        i.points(o),
+                        "undefined" != typeof c && (c.x(h + (r - h) / 2),
+                        c.y(m + (n - m) / 2)),
+                        "undefined" != typeof u && (u.x(r + (g - r) / 2),
+                        u.y(n + (y - n) / 2)), e.getLayer().batchDraw()
                     }), e.add(h)
                 }
                 e.draw()
@@ -1873,7 +1879,7 @@ $(function() {
         }), $("#bc").click(function() {
             stageOper.stageMaxMin("restore");
             var stageObjJson = stageOper.getStageJson();
-            "undefined" == typeof stage_id && (stage_id = ""), stage_id = eval("initConfig." + initjson.saveCallbackFunction + "(stageObjJson,stage_id)")
+            "undefined" == typeof stage_i d && (stage_id = ""), stage_id = eval("initConfig." + initjson.saveCallbackFunction + "(stageObjJson,stage_id)")
         }), $("#module_up").click(function() {
             stageOper.changeModuleZindex("up")
         }), $("#module_down").click(function() {
