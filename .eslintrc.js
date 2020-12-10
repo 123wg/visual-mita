@@ -14,7 +14,8 @@ parserOptions: {
   },
   globals: {
     Konva: false,
-    gifler: false
+    gifler: false,
+    SuperGif:false,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -23,7 +24,9 @@ parserOptions: {
     'max-len': ['error', { code: 100000 }],
     'vue/html-indent': ['error', 4],
     "no-param-reassign": 0,
-    "@typescript-eslint/no-this-alias": ["off"]
+    "@typescript-eslint/no-this-alias": ["off"],
+    camelcase: 'off',
+    '@typescript-eslint/camelcase': 0,
   },
   overrides: [
     {
