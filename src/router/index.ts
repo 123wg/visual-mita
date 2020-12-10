@@ -89,7 +89,23 @@ const routes: Array<RouteConfig> = [
     name: 'Gif',
     component: () => import('@/views/test/Gif.vue'),
     meta: {
-      title: '加载Gif',
+      title: '测试加载Gif',
+    },
+  },
+  {
+    path: '/svg',
+    name: 'Svg',
+    component: () => import('@/views/test/Svg.vue'),
+    meta: {
+      title: '测试加载SVG',
+    },
+  },
+  {
+    path: '/echarts',
+    name: 'Echarts',
+    component: () => import('@/views/test/Echarts.vue'),
+    meta: {
+      title: '测试加载echarts',
     },
   },
   {

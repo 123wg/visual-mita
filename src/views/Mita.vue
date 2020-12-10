@@ -63,7 +63,7 @@ export default {
         stage.setPointersPositions(evt);
         const shapeOption = JSON.parse(evt.dataTransfer.getData('shapeJson'));
         const curPosition = stage.getPointerPosition();
-        if (shapeOption.attrs.moduleType === 'IMAGE' || shapeOption.attrs.moduleType === 'GIF' || shapeOption.attrs.moduleType === 'SVG') {
+        if (shapeOption.attrs.moduleType === 'IMAGE' || shapeOption.attrs.moduleType === 'SVG') { // 一般图片
           Konva.Image.fromURL(shapeOption.attrs.imageUrl, (node) => {
             node.setAttrs({
               ...shapeOption.attrs,
@@ -72,7 +72,63 @@ export default {
             layer.add(node);
             layer.draw();
           });
-        } else if (shapeOption.attrs.moduleType === 'FLOW_LINE') {
+        }
+        // if (shapeOption.attrs.moduleType === 'SVG') {
+
+        // }
+        if (shapeOption.attrs.moduleType === 'GIF') {
+          const templateImage = new Image();
+          templateImage.src = shapeOption.attrs.imageUrl;
+          templateImage.onload = () => {
+            // image  has been loaded
+            const gif = new SuperGif({
+              gif: templateImage,
+              progressbar_height: 0, // 进度条的高度
+              auto_play: true,
+              loop_mode: true,
+              draw_while_loading: true,
+            });
+
+            gif.load();
+
+            const gif_canvas = gif.get_canvas(); // the lib canvas
+            // a copy of this canvas which will be appended to the doc
+            const canvas = gif_canvas.cloneNode();
+            const context = canvas.getContext('2d');
+
+            const anim = () => { // our animation loop
+              context.clearRect(0, 0, canvas.width, canvas.height); // in case of transparency ?
+              context.drawImage(gif_canvas, 0, 0); // draw the gif frame
+              layer.draw();
+              requestAnimationFrame(anim);
+            };
+
+            anim();
+
+            // draw resulted canvas into the stage as Konva.Image
+            const image = new Konva.Image({
+              image: canvas,
+              width: 200,
+              height: 200,
+              //   可以任意添加自定义属性 序列化的时候 用自定义属性保存图片
+              // 配置项也可以全部保存啊 卧槽
+              // 先写配置 后期修改为面向对象生成的方式
+              imgSrc: 'test.gif',
+            });
+            image.position(curPosition);
+            // image.setAttrs({
+            //   ...shapeOption.attrs,
+            // });
+            console.log(shapeOption.attrs);
+            Object.keys(shapeOption.attrs).forEach((key) => {
+              image.setAttr(key, shapeOption.attrs[key]);
+            });
+            console.log(image);
+            layer.add(image);
+          };
+        }
+
+        if (shapeOption.attrs.moduleType === 'FLOW_LINE') {
           const s = Konva.Node.create(shapeOption);
           s.move(curPosition);
           layer.add(s);
@@ -102,12 +158,17 @@ export default {
           return;
         }
         const parent = e.target.getParent();
-        if (parent.attrs.moduleType === 'POOL') {
-          tr.nodes([parent]);
+        if (e.target.attrs.moduleType === 'IMAGE' || e.target.attrs.moduleType === 'SVG' || e.target.attrs.moduleType === 'GIF') {
+          tr.nodes([e.target]);
           layer.draw();
-        }
-        if (parent.attrs.moduleType === 'FLOW_LINE') {
-          this.addFlowLineEdit(parent, layer);
+        } else if (parent) {
+          if (parent.attrs.moduleType === 'POOL') {
+            tr.nodes([parent]);
+            layer.draw();
+          }
+          if (parent.attrs.moduleType === 'FLOW_LINE') {
+            this.addFlowLineEdit(parent, layer);
+          }
         }
       });
       layer.add(tr);

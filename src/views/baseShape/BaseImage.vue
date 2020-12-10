@@ -6,7 +6,7 @@
 <template>
     <div class='base-image'>
         <div id="container"></div>
-        <!-- <div class="test">{{imgOption}}</div> -->
+        <div class="test">{{imgOption}}</div>
     </div>
 </template>
 
@@ -88,7 +88,7 @@ export default {
         imageObj['加热器'].push(`/img/jiareqi/${i}.png`);
       }
       for (let i = 1; i <= 7; i += 1) {
-        imageObj['冷热源'].push(`/img/lengreyuan/${i}.png`);
+        imageObj['冷热源'].push(`/img/lengreyuan/${i}.svg`);
       }
       for (let i = 1; i <= 21; i += 1) {
         imageObj['流量计'].push(`/img/liuliangji/${i}.png`);
