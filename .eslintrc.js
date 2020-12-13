@@ -16,6 +16,7 @@ parserOptions: {
     Konva: false,
     gifler: false,
     SuperGif:false,
+    vm:false,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -27,6 +28,7 @@ parserOptions: {
     "@typescript-eslint/no-this-alias": ["off"],
     camelcase: 'off',
     '@typescript-eslint/camelcase': 0,
+    "@typescript-eslint/no-explicit-any": ["off"]
   },
   overrides: [
     {

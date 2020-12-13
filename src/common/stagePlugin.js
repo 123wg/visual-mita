@@ -1,0 +1,363 @@
+import echartsOption from '@/common/echartsOption';
+
+class StagePlugin {
+  constructor() {
+    // 当前操作的节点
+    this.curNode = null;
+    this.stage = null;
+    this.layer = null;
+    this.transform = null;
+  }
+
+  //   初始化场景方法
+  initStage(width = 1024, height = 768, container = 'container') {
+    this.stage = new Konva.Stage({
+      width,
+      height,
+      container,
+    });
+    this.layer = new Konva.Layer();
+    this.stage.add(this.layer);
+    // 创建变换器
+    this.createTransform();
+    // 注册全局事件
+    this.setStageEvent();
+  }
+
+  //   加载数据方法
+  initStageJson(stageJson, container) {
+    this.stage = Konva.Node.create(stageJson, container);
+    [this.layer] = this.stage.getLayers();
+    this.stage.add(this.layer);
+    // 获取所有子节点
+    const nodes = this.layer.find('Group');
+    nodes.each((e) => {
+      this.createModuleObj(e);
+      this.addModuleEvent(e);
+    });
+    // 创建变换器
+    this.createTransform();
+    this.setStageEvent();
+  }
+
+  //   场景全局事件监听
+  setStageEvent() {
+    const { stage } = this;
+    const { layer } = this;
+    const container = stage.container();
+    container.addEventListener('dragover', (evt) => {
+      evt.preventDefault();
+    });
+    // 全局鼠标放下事件
+    container.addEventListener('drop', (evt) => {
+      evt.preventDefault();
+      stage.setPointersPositions(evt);
+      const shapeOption = JSON.parse(evt.dataTransfer.getData('shapeJson'));
+      const moduleObj = Konva.Node.create(shapeOption);
+      const curPosition = stage.getPointerPosition();
+      moduleObj.position(curPosition);
+      layer.add(moduleObj);
+      this.createModuleObj(moduleObj);
+    });
+    // 全局点击事件
+    stage.on('click tap', (evt) => {
+      const tr = this.transform;
+      this.removeLineEdit();
+      tr.nodes([]);
+      if (evt.target === stage) {
+        layer.draw();
+        return;
+      }
+      const parent = evt.target.getParent();
+      const { moduleType } = parent.attrs;
+      if (moduleType === 'IMAGE'
+           || moduleType === 'SVG'
+           || moduleType === 'GIF') {
+        tr.nodes([evt.target]);
+        layer.draw();
+      } else if (moduleType === 'FLOW_LINE') {
+        this.addLineEdit(parent);
+      } else {
+        tr.nodes([parent]);
+        layer.draw();
+      }
+    });
+  }
+
+  /**
+  *@description: 添加元素鼠标悬浮事件
+  *@param{}
+  *@return:
+  */
+  addModuleEvent(e) {
+    e.on('mouseover', (evt) => {
+      const t = evt.target;
+      document.body.style.cursor = t.name().indexOf('line_anchor') !== -1 ? 'crosshair' : 'move';
+    });
+    e.on('mouseout', () => {
+      document.body.style.cursor = 'default';
+    });
+  }
+
+  /**
+  *@description: 创建图形
+  *@param{}
+  *@return:
+  */
+  createModuleObj(obj) {
+    const { stage } = this;
+    const { layer } = this;
+    const moduleObj = obj;
+    const curPosition = moduleObj.position();
+    const attrs = moduleObj.getAttrs();
+    const { moduleType } = attrs;
+    if (moduleType === 'IMAGE' || moduleType === 'SVG') { // 一般图片
+      // FIXME 暂时删除所有子节点 不排除后期选择性删除
+      moduleObj.destroyChildren();
+      Konva.Image.fromURL(attrs.imageUrl, (node) => {
+        moduleObj.add(node);
+        layer.draw();
+      });
+    } else if (moduleType === 'GIF') {
+      moduleObj.destroyChildren();
+      const templateImage = new Image();
+      templateImage.src = attrs.imageUrl;
+      templateImage.onload = () => {
+        // image  has been loaded
+        const gif = new SuperGif({
+          gif: templateImage,
+          progressbar_height: 0, // 进度条的高度
+          auto_play: true,
+          loop_mode: true,
+          draw_while_loading: true,
+        });
+
+        gif.load();
+
+        const gif_canvas = gif.get_canvas(); // the lib canvas
+        // a copy of this canvas which will be appended to the doc
+        const canvas = gif_canvas.cloneNode();
+        const context = canvas.getContext('2d');
+
+        const anim = () => { // our animation loop
+          context.clearRect(0, 0, canvas.width, canvas.height); // in case of transparency ?
+          context.drawImage(gif_canvas, 0, 0); // draw the gif frame
+          layer.draw();
+          requestAnimationFrame(anim);
+        };
+
+        anim();
+
+        // draw resulted canvas into the stage as Konva.Image
+        const image = new Konva.Image({
+          image: canvas,
+          width: 200,
+          height: 200,
+          //   可以任意添加自定义属性 序列化的时候 用自定义属性保存图片
+          // 配置项也可以全部保存啊 卧槽
+          // 先写配置 后期修改为面向对象生成的方式
+          imgSrc: 'test.gif',
+        });
+        moduleObj.add(image);
+        layer.draw();
+      };
+    } else if (moduleType === 'FLOW_LINE') {
+      layer.draw();
+    } else if (moduleType === 'ECHARTS') {
+      moduleObj.destroyChildren();
+      const stageArea = stage.container().getBoundingClientRect();
+      //  创建渲染echarts 的节点
+      const optionName = attrs.echartsOption;
+      const dom = document.createElement('div');
+      dom.style.width = '200px';
+      dom.style.height = '200px';
+      dom.style.position = 'absolute';
+      dom.style.left = `${stageArea.x + curPosition.x}px`;
+      dom.style.top = `${stageArea.y + curPosition.y}px`;
+      const echarts = vm.$echarts.init(dom);
+      echarts.setOption(echartsOption[optionName]());
+      stage.container().appendChild(dom);
+      echarts.on('finished', () => {
+        const src = echarts.getDataURL({
+          type: 'png',
+          background: '#fff',
+        });
+        Konva.Image.fromURL(src, (imgNode) => {
+          moduleObj.add(imgNode);
+          layer.add(moduleObj);
+          layer.draw();
+          stage.container().removeChild(dom);
+        });
+      });
+      //  创建图片
+    } else {
+      layer.draw();
+    }
+  }
+
+  /**
+  *@description: 添加流动线条绘制方法
+  *@param{}
+  *@return:
+  */
+  addLineEdit(node) {
+    const that = this;
+    const { layer } = this;
+    // 查找所有拖拽元素 销毁
+    const circleArrt = node.find('Circle');
+    circleArrt.each((obj) => {
+      obj.destroy();
+    });
+    layer.draw();
+
+    // 获取背景线条元素
+    const curLine = node.find('.flowline_bc')[0];
+    const frontLine = node.find('.flowline_front')[0];
+    // 线条点位
+    const linePoints = curLine.points();
+    // 线条宽度
+    const strokeWidth = curLine.strokeWidth();
+    for (let i = 0; i < linePoints.length / 2; i += 1) {
+      const move = i * 2;
+      const moves = linePoints[move];
+      const movee = linePoints[move + 1];
+      const drag = i;
+      const dragP = drag * 2;
+      // 创建移动标记
+      const moveCircle = new Konva.Circle({
+        x: moves,
+        y: movee,
+        radius: strokeWidth / 2 + 5,
+        stroke: 'yellow',
+        strokeWidth: 2,
+        name: 'line_anchor',
+        draggable: true,
+        indexLabel: dragP,
+      });
+      node.add(moveCircle);
+      layer.draw();
+
+      moveCircle.on('dragmove', (evt) => {
+        const obj = evt.currentTarget;
+        const dragIndex = obj.attrs.indexLabel;
+        // 当前移动的坐标
+        const x = obj.x();
+        const y = obj.y();
+        const preCircle = layer.find(`.line_anchor${dragIndex - 1}`)[0];
+        const behindCircle = layer.find(`.line_anchor${dragIndex + 1}`)[0];
+        // 新坐标
+        const preCirclex = dragIndex - 2;
+        const preCircley = dragIndex - 1;
+        const behindx = dragIndex + 2;
+        const behindy = dragIndex + 3;
+        if (preCircle !== undefined) {
+          preCircle.x((linePoints[preCirclex] + x) / 2);
+          preCircle.y((linePoints[preCircley] + y) / 2);
+        }
+        if (behindCircle !== undefined) {
+          behindCircle.x((linePoints[behindx] + x) / 2);
+          behindCircle.y((linePoints[behindy] + y) / 2);
+        }
+        linePoints.splice(dragIndex, 2, x, y);
+        curLine.points(linePoints);
+        frontLine.points(linePoints);
+        layer.draw();
+      });
+
+      if (drag !== 0) {
+        const drags = (linePoints[dragP - 2] + linePoints[dragP]) / 2;
+        const drage = (linePoints[dragP - 1] + linePoints[dragP + 1]) / 2;
+        // 创建拖动标记
+        const dragCircle = new Konva.Circle({
+          x: drags,
+          y: drage,
+          radius: strokeWidth / 2 + 5,
+          stroke: 'red',
+          strokeWidth: 2,
+          name: `line_anchor${dragP - 1}`,
+          draggable: true,
+        });
+
+        // eslint-disable-next-line no-loop-func
+        dragCircle.on('dragend', (evt) => {
+          const obj = evt.currentTarget;
+          linePoints.splice(dragP, 0, obj.x(), obj.y());
+          curLine.points(linePoints);
+          frontLine.points(linePoints);
+          that.addLineEdit(node);
+        });
+        node.add(dragCircle);
+        layer.draw();
+      }
+    }
+  }
+
+  /**
+  *@description: 移除流动线条绘制
+  *@param{}
+  *@return:
+  */
+  removeLineEdit() {
+    const anchors = this.layer.find((node) => node.getName().includes('line_anchor'));
+    anchors.each((e) => {
+      e.destroy();
+    });
+  }
+
+  //   创建变换器
+  createTransform() {
+    this.transform = new Konva.Transformer({
+      name: 'transform',
+      nodes: [],
+      rotateAnchorOffset: 60,
+      // 是否开启中心点缩放
+      centeredScaling: false,
+      // 保持纵横比
+      keepRatio: false,
+      enabledAnchors: ['top-left', 'top-center', 'top-right', 'middle-right', 'middle-left', 'bottom-left', 'bottom-center', 'bottom-right'],
+    });
+    this.layer.add(this.transform);
+    this.layer.draw();
+  }
+
+  //  场景数据保存
+  getStageJson() {
+    //  删除transform
+    this.transform.destroy();
+    //  去除线的绘制标签
+    this.removeLineEdit();
+    this.layer.draw();
+    //  导出json数据
+    return this.stage.toJSON();
+  }
+
+  //   绘制图形
+  //   drawShape();
+
+  // 设置场景大小方法
+  //   setStageSize();
+
+  // 设置场景背景方法
+  //   setStageBacground();
+
+  // 获取当前操作的节点
+  //   getCurNode();
+
+  // 节点复制
+  //   copyNode();
+
+  // 节点黏贴
+  //   pasteNode();
+
+  // 节点上移
+  //   topNode();
+
+  // 节点下移
+//   botomNode();
+  //   节点置顶
+  //   节点置底
+  //   画布放大
+  //   画布缩小
+  //   数据保存
+}
+export default StagePlugin;

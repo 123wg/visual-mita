@@ -102,6 +102,24 @@ const ShapeOption = {
   },
   //   图片------------------------------------end
 
+  //   温度计----------------------------------start
+  hasTempName() {
+    this.commonName();
+  },
+  hasTempMoudleType() {
+    this.commonModuleType('ECHARTS');
+  },
+  hasTempBindDevice(attrWhere) {
+    this.commonBindDevice('setTempValue', attrWhere);
+  },
+  hasTempValue(attrWhere = 'this') {
+    this.optionObj.tempValue = '0';
+    this.createModuleAttr('温度', 'tempValue', 'input', attrWhere);
+  },
+  hasTempOptionUrl(optionUrl) {
+    this.optionObj.echartsOption = optionUrl;
+  },
+  //   温度计----------------------------------end
   //  通用name
   commonName() {
     this.optionObj.name = 'mita_module_group';

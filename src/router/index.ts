@@ -132,6 +132,14 @@ const routes: Array<RouteConfig> = [
       title: '基本图片',
     },
   },
+  {
+    path: '/temperature',
+    name: 'temperature',
+    component: () => import('@/views/echarts/Temperature.vue'),
+    meta: {
+      title: '温度计',
+    },
+  },
 
 //   {
 //     path: '/about',

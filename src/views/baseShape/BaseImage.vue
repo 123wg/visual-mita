@@ -126,10 +126,11 @@ export default {
               moduleJson: null,
               moduleName: '',
             };
+            const group = new Konva.Group({
+              draggable: true,
+            });
             Konva.Image.fromURL(imgList[j], (node) => {
-              node.setAttrs({
-                draggable: true,
-              });
+              group.add(node);
               // 判断图片类型
               ShapeOption.hasImageName();
               ShapeOption.hasImageUrl(imgList[j]);
@@ -144,12 +145,12 @@ export default {
               if (imgList[j].endsWith('.svg')) {
                 ShapeOption.hasImageSvgModuleType();
               }
-              const curAttr = node.toObject();
+              const curAttr = group.toObject();
               console.log(curAttr.attrs);
               Object.assign(curAttr.attrs, ShapeOption.toObject());
               menuItem.moduleJson = JSON.stringify(curAttr);
               imgOption.moduleItem.push(menuItem);
-              layer.add(node);
+              layer.add(group);
               layer.draw();
             });
           })(i);

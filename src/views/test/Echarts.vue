@@ -1,6 +1,6 @@
 <template>
     <div class='test-eharts'>
-        <div id="echarts" :style="{width: '300px', height: '300px'}"></div>
+        <div id="echarts" :style="{width: '500px', height: '500px'}"></div>
     </div>
 </template>
 
@@ -12,16 +12,19 @@ export default {
   data() {
     return {
       option: {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        },
-        yAxis: {
-          type: 'value',
+        tooltip: {
+          formatter: '{a} <br/>{b} : {c}℃',
         },
         series: [{
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
-          type: 'line',
+          name: '',
+          type: 'gauge',
+          detail: {
+            formatter: '{value}',
+          },
+          data: [{
+            value: 50,
+            name: '温度',
+          }],
         }],
       },
     };
@@ -38,7 +41,7 @@ export default {
       console.log(this.$echarts);
       const echarts = this.$echarts.init(document.getElementById('echarts'));
       echarts.setOption(this.option);
-      setTimeout(() => {
+      echarts.on('finished', () => {
         const img = new Image();
         img.src = echarts.getDataURL({
           type: 'png',

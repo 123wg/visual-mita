@@ -5,7 +5,9 @@
 **/
 <template>
     <div class='mita'>
-        <div class="header"></div>
+        <div class="header">
+            <div class="header-item" @click="stageToJson">保存</div>
+        </div>
         <div class="main">
             <div class="left">
                 <div class="module-group" v-for="(item,index) in shapeConfig" :key="index">
@@ -22,7 +24,7 @@
                 </div>
             </div>
             <div class="middle">
-                <div class="container" id="container"></div>
+                <div class="container" id="container" ref="container"></div>
             </div>
             <div class="right"></div>
         </div>
@@ -31,250 +33,43 @@
 
 <script>
 import shapeConfig from '@/common/shapeConfig';
+// import echartsOption from '@/common/echartsOption';
+import StagePlugin from '@/common/stagePlugin';
 
 export default {
   components: {},
   data() {
     return {
       shapeConfig,
+      stage: null,
+      stageJson: '{"attrs":{"width":1024,"height":768},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"水池高度(峰值)","attrCode":"poolHeight","attrType":"input","attrWhere":"pool_background"},{"attrName":"水池边框粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"pool_border"},{"attrName":"水池边框颜色","attrCode":"stroke","attrType":"color","attrWhere":"pool_border"},{"attrName":"水池背景颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_background"},{"attrName":"水的颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_wrater"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"POOL","dataKey":"[\'\']","methodCall":"setPoolValue","poolHeight":20,"hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","x":256,"y":211},"className":"Group","children":[{"attrs":{"width":200,"height":300,"fill":"yellow","name":"pool_background"},"className":"Rect"},{"attrs":{"y":280,"width":200,"height":20,"fill":"red","name":"pool_water"},"className":"Rect"},{"attrs":{"points":[0,0,0,300,200,300,200,0],"stroke":"black","name":"pool_border"},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"温度","attrCode":"tempValue","attrType":"input","attrWhere":"this"}],"name":"mita_module_group","moduleType":"ECHARTS","dataKey":"[\'\']","methodCall":"setTempValue","tempValue":"0","echartsOption":"tempOption","x":29,"y":189},"className":"Group","children":[{"attrs":{},"className":"Image"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":422,"y":258},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":272,"y":148},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}]}]}',
     };
   },
   computed: {},
   mounted() {
-    this.init();
+    // this.initStage();
+    this.showStage();
+    // this.export();
   },
   watch: {},
   methods: {
-    init() {
-      // 1.舞台初始化
-      const stage = new Konva.Stage({
-        width: 900,
-        height: 600,
-        container: 'container',
-      });
-      const layer = new Konva.Layer();
-      stage.add(layer);
-      //   2.监听拖拽事件
-      const con = stage.container();
-      con.addEventListener('dragover', (evt) => {
-        evt.preventDefault();
-      });
-      con.addEventListener('drop', (evt) => {
-        stage.setPointersPositions(evt);
-        const shapeOption = JSON.parse(evt.dataTransfer.getData('shapeJson'));
-        const curPosition = stage.getPointerPosition();
-        if (shapeOption.attrs.moduleType === 'IMAGE' || shapeOption.attrs.moduleType === 'SVG') { // 一般图片
-          Konva.Image.fromURL(shapeOption.attrs.imageUrl, (node) => {
-            node.setAttrs({
-              ...shapeOption.attrs,
-            });
-            node.position(curPosition);
-            layer.add(node);
-            layer.draw();
-          });
-        }
-        // if (shapeOption.attrs.moduleType === 'SVG') {
-
-        // }
-        if (shapeOption.attrs.moduleType === 'GIF') {
-          const templateImage = new Image();
-          templateImage.src = shapeOption.attrs.imageUrl;
-          templateImage.onload = () => {
-            // image  has been loaded
-            const gif = new SuperGif({
-              gif: templateImage,
-              progressbar_height: 0, // 进度条的高度
-              auto_play: true,
-              loop_mode: true,
-              draw_while_loading: true,
-            });
-
-            gif.load();
-
-            const gif_canvas = gif.get_canvas(); // the lib canvas
-            // a copy of this canvas which will be appended to the doc
-            const canvas = gif_canvas.cloneNode();
-            const context = canvas.getContext('2d');
-
-            const anim = () => { // our animation loop
-              context.clearRect(0, 0, canvas.width, canvas.height); // in case of transparency ?
-              context.drawImage(gif_canvas, 0, 0); // draw the gif frame
-              layer.draw();
-              requestAnimationFrame(anim);
-            };
-
-            anim();
-
-            // draw resulted canvas into the stage as Konva.Image
-            const image = new Konva.Image({
-              image: canvas,
-              width: 200,
-              height: 200,
-              //   可以任意添加自定义属性 序列化的时候 用自定义属性保存图片
-              // 配置项也可以全部保存啊 卧槽
-              // 先写配置 后期修改为面向对象生成的方式
-              imgSrc: 'test.gif',
-            });
-            image.position(curPosition);
-            // image.setAttrs({
-            //   ...shapeOption.attrs,
-            // });
-            console.log(shapeOption.attrs);
-            Object.keys(shapeOption.attrs).forEach((key) => {
-              image.setAttr(key, shapeOption.attrs[key]);
-            });
-            console.log(image);
-            layer.add(image);
-          };
-        }
-
-        if (shapeOption.attrs.moduleType === 'FLOW_LINE') {
-          const s = Konva.Node.create(shapeOption);
-          s.move(curPosition);
-          layer.add(s);
-          layer.draw();
-        } else {
-          const s = Konva.Node.create(shapeOption);
-          s.position(stage.getPointerPosition());
-          layer.add(s);
-          layer.draw();
-        }
-      });
-      // 3.创建变换器
-      const tr = new Konva.Transformer({
-        nodes: [],
-        rotateAnchorOffset: 60,
-        // 是否开启中心点缩放
-        centeredScaling: false,
-        // 保持纵横比
-        keepRatio: false,
-        enabledAnchors: ['top-left', 'top-center', 'top-right', 'middle-right', 'middle-left', 'bottom-left', 'bottom-center', 'bottom-right'],
-      });
-
-      stage.on('click tap', (e) => {
-        if (e.target === stage) {
-          tr.nodes([]);
-          layer.draw();
-          return;
-        }
-        const parent = e.target.getParent();
-        if (e.target.attrs.moduleType === 'IMAGE' || e.target.attrs.moduleType === 'SVG' || e.target.attrs.moduleType === 'GIF') {
-          tr.nodes([e.target]);
-          layer.draw();
-        } else if (parent) {
-          if (parent.attrs.moduleType === 'POOL') {
-            tr.nodes([parent]);
-            layer.draw();
-          }
-          if (parent.attrs.moduleType === 'FLOW_LINE') {
-            this.addFlowLineEdit(parent, layer);
-          }
-        }
-      });
-      layer.add(tr);
-    },
-
     /**
-    *@description: 流动线条编辑
-    *@param{}
-    *@return:
-    */
-    addFlowLineEdit(e, layer) {
-      const that = this;
-      // 查找所有拖拽元素 销毁
-      const circleArrt = layer.find('Circle');
-      circleArrt.each((obj) => {
-        obj.destroy();
-      });
-      layer.draw();
-
-      // 获取当前位置
-      //   const position = {
-      //     x: e.attrs.x,
-      //     y: e.attrs.y,
-      //   };
-      // 获取背景线条元素
-      const curLine = e.find('.flowline_bc')[0];
-      const frontLine = e.find('.flowline_front')[0];
-      // 线条点位
-      const linePoints = curLine.points();
-      // 线条宽度
-      const strokeWidth = curLine.strokeWidth();
-      for (let i = 0; i < linePoints.length / 2; i += 1) {
-        const move = i * 2;
-        const moves = linePoints[move];
-        const movee = linePoints[move + 1];
-        const drag = i;
-        const dragP = drag * 2;
-        // 创建移动标记
-        const moveCircle = new Konva.Circle({
-          x: moves,
-          y: movee,
-          radius: strokeWidth / 2 + 5,
-          stroke: 'yellow',
-          strokeWidth: 2,
-          name: 'line_anchor',
-          draggable: true,
-          indexLabel: dragP,
-        });
-        e.add(moveCircle);
-        layer.draw();
-
-        moveCircle.on('dragmove', (evt) => {
-          const obj = evt.currentTarget;
-          const dragIndex = obj.attrs.indexLabel;
-          // 当前移动的坐标
-          const x = obj.x();
-          const y = obj.y();
-          const preCircle = layer.find(`.line_anchor${dragIndex - 1}`)[0];
-          const behindCircle = layer.find(`.line_anchor${dragIndex + 1}`)[0];
-          // 新坐标
-          const preCirclex = dragIndex - 2;
-          const preCircley = dragIndex - 1;
-          const behindx = dragIndex + 2;
-          const behindy = dragIndex + 3;
-          if (preCircle !== undefined) {
-            preCircle.x((linePoints[preCirclex] + x) / 2);
-            preCircle.y((linePoints[preCircley] + y) / 2);
-          }
-          if (behindCircle !== undefined) {
-            behindCircle.x((linePoints[behindx] + x) / 2);
-            behindCircle.y((linePoints[behindy] + y) / 2);
-          }
-          linePoints.splice(dragIndex, 2, x, y);
-          curLine.points(linePoints);
-          frontLine.points(linePoints);
-          layer.draw();
-        });
-
-        if (drag !== 0) {
-          const drags = (linePoints[dragP - 2] + linePoints[dragP]) / 2;
-          const drage = (linePoints[dragP - 1] + linePoints[dragP + 1]) / 2;
-          // 创建拖动标记
-          const dragCircle = new Konva.Circle({
-            x: drags,
-            y: drage,
-            radius: strokeWidth / 2 + 5,
-            stroke: 'red',
-            strokeWidth: 2,
-            name: `line_anchor${dragP - 1}`,
-            draggable: true,
-          });
-
-          dragCircle.on('dragend', (evt) => {
-            const obj = evt.currentTarget;
-            linePoints.splice(dragP, 0, obj.x(), obj.y());
-            curLine.points(linePoints);
-            frontLine.points(linePoints);
-            console.log(linePoints);
-            that.addFlowLineEdit(e, layer);
-          });
-          e.add(dragCircle);
-          layer.draw();
-        }
-      }
-      // 查看所有的点数量
-      // 有两个点 产生循环产生两个点
+      *@description: 面向对象方式改写初始化测试
+      *@param{}
+      *@return:
+      */
+    initStage() {
+      // FIXME 暂时挂载到当前组件中 后期移出 防止库中数据影响性能
+      this.stage = new StagePlugin();
+      this.stage.initStage();
+    },
+    /**
+      *@description: 测试数据导入回显
+      *@param{}
+      *@return:
+      */
+    export() {
+      Konva.Node.create(this.testJson, 'container');
     },
 
     /**
@@ -284,6 +79,25 @@ export default {
     */
     dragShape(event, item) {
       event.dataTransfer.setData('shapeJson', item.moduleJson);
+    },
+
+    /**
+    *@description: 数据持久化
+    *@param{}
+    *@return:
+    */
+    stageToJson() {
+      console.log(this.stage.getStageJson());
+    },
+
+    /**
+    *@description: 展示保存的数据
+    *@param{}
+    *@return:
+    */
+    showStage() {
+      this.stage = new StagePlugin();
+      this.stage.initStageJson(this.stageJson, 'container');
     },
   },
 };
