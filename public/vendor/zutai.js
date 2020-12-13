@@ -591,7 +591,10 @@ function getStageStr() {
                                 r = a.attrs.indexLable,
                                 l = a.x(),
                                 d = a.y();
-                            n.splice(2 * r, 0, l, d), i.points(n), o.points(n), stageOper.addFlowLineEdit(e)
+                            n.splice(2 * r, 0, l, d),
+                             i.points(n),
+                              o.points(n),
+                              stageOper.addFlowLineEdit(e)
                         }), e.add(f)
                     }
                     m.on("dragmove", function (t) {
@@ -699,7 +702,8 @@ function getStageStr() {
                 })
             }
             this.layer.draw()
-        }, showModuleAttr: function (moduleObject) {
+        },
+        showModuleAttr: function (moduleObject) {
             $("#zjsx")
                 .html("");
             var moduleAttrs = moduleObject.attrs.moduleAttr;
@@ -710,11 +714,21 @@ function getStageStr() {
                         attrType = moduleAttrs[i].attrType,
                         attrWhere = moduleAttrs[i].attrWhere,
                         moudleShape, attrValue;
-                    if ("this" === attrWhere.split(",")[0] ? (moudleShape = moduleObject, attrValue = moudleShape.getAttr(attrCode)) : (moudleShape = moduleObject.findOne("." + attrWhere.split(",")[0]), attrValue = moudleShape.getAttr(attrCode)), console.log("点击组件时要显示的属性: 属性名:" + attrName + "       属性代码" + attrCode + "      属性值:" + attrValue + "       属性类型" + attrType + "       属性所属形状" + attrWhere), "undefined" == typeof attrValue && (attrValue = ""), "color" == attrType && (moduleAttrHtml += '<div class="layui-form-item"><label class="layui-form-label">' + attrName + "</label>" + '<div class="layui-input-inline" style="margin-left: 5px;width: 120px;">' + '<input type="text" value="' + attrValue + '" placeholder="请选择颜色" class="layui-input" id="' + attrCode + "_" + attrWhere.split(",")[0] + '_input_color">' + "</div>" + '<div class="layui-inline" style="margin-bottom: 0px; margin-right: 0px;left: -11px;">' + '<div id="' + attrCode + "_" + attrWhere.split(",")[0] + '_ico_color"></div>' + "</div>" + "</div>", color_array.push({
+                    if ("this" === attrWhere.split(",")[0] ?
+                    (moudleShape = moduleObject, attrValue = moudleShape.getAttr(attrCode)) :
+                    (moudleShape = moduleObject.findOne("." + attrWhere.split(",")[0]),
+                     attrValue = moudleShape.getAttr(attrCode)),
+                    console.log("点击组件时要显示的属性: 属性名:" + attrName + "       属性代码" + attrCode + "      属性值:" + attrValue + "       属性类型" + attrType +
+                    "       属性所属形状" + attrWhere), "undefined" == typeof attrValue && (attrValue = ""), "color" == attrType && (moduleAttrHtml +=
+                        '<div class="layui-form-item"><label class="layui-form-label">' + attrName + "</label>" + '<div class="layui-input-inline" style="margin-left: 5px;width: 120px;">' +
+                        '<input type="text" value="' + attrValue + '" placeholder="请选择颜色" class="layui-input" id="' + attrCode + "_" + attrWhere.split(",")[0] + '_input_color">' +
+                        "</div>" + '<div class="layui-inline" style="margin-bottom: 0px; margin-right: 0px;left: -11px;">' +
+                        '<div id="' + attrCode + "_" + attrWhere.split(",")[0] + '_ico_color"></div>' + "</div>" + "</div>", color_array.push({
                         attrCode: attrCode,
                         attrValue: attrValue,
                         attrWhere: attrWhere
-                    })), "input" == attrType && (moduleAttrHtml += '<div class="layui-form-item"><label class="layui-form-label">' + attrName + "</label>" + '<div class="layui-input-block">' + '<input id="' + attrCode + "_" + attrWhere + '_input_text" type="text" lay-verify="borderSize" value="' + attrValue + '" autocomplete="off"  class="layui-input">' + "</div>" + "</div>", input_text_array.push({
+                    })), "input" == attrType &&
+                    (moduleAttrHtml += '<div class="layui-form-item"><label class="layui-form-label">' + attrName + "</label>" + '<div class="layui-input-block">' + '<input id="' + attrCode + "_" + attrWhere + '_input_text" type="text" lay-verify="borderSize" value="' + attrValue + '" autocomplete="off"  class="layui-input">' + "</div>" + "</div>", input_text_array.push({
                         attrCode: attrCode,
                         attrValue: attrValue,
                         attrWhere: attrWhere

@@ -17,6 +17,7 @@ parserOptions: {
     gifler: false,
     SuperGif:false,
     vm:false,
+    CONFIG:false
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

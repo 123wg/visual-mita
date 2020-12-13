@@ -53,7 +53,7 @@ const ShapeOption = {
   },
   //  动画条件
   hasFlowAnim(attrWhere = 'this') {
-    this.optionObj.where = "[{direction:'',where:{min:'',max:''}}]";
+    this.optionObj.where = [{ direction: '', where: { min: '', max: '' } }];
     this.createModuleAttr('动画条件', 'where', 'whereSelectTable', attrWhere);
   },
   //  粗细
@@ -132,7 +132,7 @@ const ShapeOption = {
 
   // 通用绑定设备
   commonBindDevice(valueEvtName = '', attrWhere = 'this') {
-    this.optionObj.dataKey = '[\'\']';
+    this.optionObj.dataKey = [''];
     this.optionObj.methodCall = valueEvtName;
     this.createModuleAttr('绑定设备', 'dataKey', 'hardwareSelect', attrWhere);
   },
@@ -150,13 +150,13 @@ const ShapeOption = {
   },
   //  通用隐藏条件
   commonHide(attrWhere = 'this') {
-    this.optionObj.hideWhere = "[{devicecode:'',min:'',max:''}]";
+    this.optionObj.hideWhere = [{ devicecode: '', min: '', max: '' }];
     this.optionObj.hideMethodCall = 'hideModule';
     this.createModuleAttr('隐藏条件', 'hideWhere', 'hideTable', attrWhere);
   },
   // 通用闪烁条件
   commonSparkLing(attrWhere = 'this') {
-    this.optionObj.sparkLingWhere = "[{devicecode:'',min:'',max:''}]";
+    this.optionObj.sparklingWhere = [{ devicecode: '', min: '', max: '' }];
     this.optionObj.sparklingMethodCall = 'sparklingModule';
     this.createModuleAttr('闪烁条件', 'sparklingWhere', 'sparklingTable', attrWhere);
   },

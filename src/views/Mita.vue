@@ -26,30 +26,47 @@
             <div class="middle">
                 <div class="container" id="container" ref="container"></div>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <div class="right-item" v-for="(item,index) in panelList" :key="index">
+                    <component :is="getBindComp(item.attrType)" :attr.sync="item"></component>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import shapeConfig from '@/common/shapeConfig';
-// import echartsOption from '@/common/echartsOption';
 import StagePlugin from '@/common/stagePlugin';
+import Vue from 'vue';
 
+const requireComponents = require.context('./rightPanel', true, /\.vue$/);
+const panelListCom = [];
+requireComponents.keys().forEach((fileName) => {
+  const componentConfig = requireComponents(fileName);
+  const componentName = componentConfig.default.name;
+  panelListCom.push(componentName);
+  Vue.component(componentName, componentConfig.default || componentConfig);
+});
+
+// 获取组件的 PascalCase 命名
 export default {
-  components: {},
+  components: {
+  },
   data() {
     return {
       shapeConfig,
-      stage: null,
       stageJson: '{"attrs":{"width":1024,"height":768},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"水池高度(峰值)","attrCode":"poolHeight","attrType":"input","attrWhere":"pool_background"},{"attrName":"水池边框粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"pool_border"},{"attrName":"水池边框颜色","attrCode":"stroke","attrType":"color","attrWhere":"pool_border"},{"attrName":"水池背景颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_background"},{"attrName":"水的颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_wrater"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"POOL","dataKey":"[\'\']","methodCall":"setPoolValue","poolHeight":20,"hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","x":256,"y":211},"className":"Group","children":[{"attrs":{"width":200,"height":300,"fill":"yellow","name":"pool_background"},"className":"Rect"},{"attrs":{"y":280,"width":200,"height":20,"fill":"red","name":"pool_water"},"className":"Rect"},{"attrs":{"points":[0,0,0,300,200,300,200,0],"stroke":"black","name":"pool_border"},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"温度","attrCode":"tempValue","attrType":"input","attrWhere":"this"}],"name":"mita_module_group","moduleType":"ECHARTS","dataKey":"[\'\']","methodCall":"setTempValue","tempValue":"0","echartsOption":"tempOption","x":29,"y":189},"className":"Group","children":[{"attrs":{},"className":"Image"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":422,"y":258},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":272,"y":148},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}]}]}',
+      selectAttr: 'InputAttr',
     };
   },
-  computed: {},
   mounted() {
-    // this.initStage();
-    this.showStage();
-    // this.export();
+    this.initStage();
+  },
+  computed: {
+    panelList() {
+      return this.$store.state.curNodeConList;
+    },
   },
   watch: {},
   methods: {
@@ -60,8 +77,8 @@ export default {
       */
     initStage() {
       // FIXME 暂时挂载到当前组件中 后期移出 防止库中数据影响性能
-      this.stage = new StagePlugin();
-      this.stage.initStage();
+      CONFIG.stage = new StagePlugin();
+      CONFIG.stage.initStage();
     },
     /**
       *@description: 测试数据导入回显
@@ -87,7 +104,7 @@ export default {
     *@return:
     */
     stageToJson() {
-      console.log(this.stage.getStageJson());
+      console.log(CONFIG.stage.getStageJson());
     },
 
     /**
@@ -96,8 +113,19 @@ export default {
     *@return:
     */
     showStage() {
-      this.stage = new StagePlugin();
-      this.stage.initStageJson(this.stageJson, 'container');
+      CONFIG.stage = new StagePlugin();
+      CONFIG.stage.initStageJson(this.stageJson, 'container');
+    },
+
+    /**
+    *@description:获取绑定的组件
+    *@param{}
+    *@return:
+    */
+    getBindComp(type) {
+      const name = type.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
+      console.log(`${name}Attr`);
+      return `${name}Attr`;
     },
   },
 };
@@ -160,6 +188,22 @@ export default {
 
             .container {
                 background: rgba(0, 0, 0, 0.65);
+            }
+        }
+
+        .right {
+            box-sizing: border-box;
+            width: calc(100% - 1324px);
+            padding: 0 100px;
+            border: 1px solid red;
+
+            .right-item {
+                width: 100%;
+                margin-top: 15px;
+
+                &:nth-child(1) {
+                    margin-top: 0;
+                }
             }
         }
     }

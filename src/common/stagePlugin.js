@@ -1,4 +1,5 @@
 import echartsOption from '@/common/echartsOption';
+import store from '@/store/index';
 
 class StagePlugin {
   constructor() {
@@ -62,13 +63,18 @@ class StagePlugin {
     // 全局点击事件
     stage.on('click tap', (evt) => {
       const tr = this.transform;
-      this.removeLineEdit();
-      tr.nodes([]);
       if (evt.target === stage) {
+        this.removeLineEdit();
+        tr.nodes([]);
+        store.commit('curNodeConList', []);
         layer.draw();
         return;
       }
       const parent = evt.target.getParent();
+      this.curNode = parent;
+      //  获取当前选中元素的所有配置项
+      this.getCurCon();
+      //   store.commit('setCurModuleObj', this.curNode);
       const { moduleType } = parent.attrs;
       if (moduleType === 'IMAGE'
            || moduleType === 'SVG'
@@ -81,7 +87,60 @@ class StagePlugin {
         tr.nodes([parent]);
         layer.draw();
       }
+      this.transform.moveToTop();
+      layer.draw();
     });
+  }
+
+  /**
+  *@description: 获取当前选中元素的配置项列表
+  *@param{}
+  *@return:
+  */
+  getCurCon() {
+    if (!this.curNode) store.commit('curNodeConList', []);
+    const configList = [];
+    const obj = this.curNode;
+    const attrs = obj.getAttrs().moduleAttr;
+    attrs.forEach((item) => {
+      const config = {
+        attrName: item.attrName,
+        attrCode: item.attrCode,
+        attrValue: null,
+        attrType: item.attrType,
+        attrWhere: item.attrWhere,
+      };
+      if (item.attrWhere === 'this') {
+        config.attrValue = obj.getAttr(config.attrCode);
+      } else {
+        const child = obj.find(`.${item.attrWhere}`)[0];
+        config.attrValue = child.getAttrs()[item.attrCode];
+      }
+      configList.push(config);
+    });
+    store.commit('curNodeConList', configList);
+    return configList;
+  }
+
+  /**
+  *@description: 修改元素配置项
+  *@param{}
+  *@return:
+  */
+  setCurCon(attr) {
+    console.log(attr);
+    //   FIXME 需要用到节流函数
+    const obj = this.curNode;
+    if (attr.attrWhere === 'this') {
+      // 获取要修改的属性
+      obj.setAttr(attr.attrCode, attr.attrValue);
+    } else {
+      const child = obj.find(`.${attr.attrWhere}`)[0];
+      child.setAttr(attr.attrCode, attr.attrValue);
+    //  TODO 判断是否是线条 如果是线条的话 重新改变两条线条的粗细
+    //  判断是否为其它形状，是其它形状的话重新修改属性
+    }
+    this.layer.draw();
   }
 
   /**
@@ -308,8 +367,10 @@ class StagePlugin {
   createTransform() {
     this.transform = new Konva.Transformer({
       name: 'transform',
+      padding: 5,
       nodes: [],
       rotateAnchorOffset: 60,
+      ignoreStroke: true,
       // 是否开启中心点缩放
       centeredScaling: false,
       // 保持纵横比
