@@ -1,7 +1,7 @@
 /**
-* @Description: 颜色选择组件
+* @Description: 动画选择条件
 * @Author: wanggang
-* @Date: 2020-12-14 22:37:22
+* @Date: 2020-12-14 22:39:08
 **/
 <template>
     <div class=''></div>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'ColorAttr',
+  name: 'WhereselecttableAttr',
   components: {},
   data() {
     return {

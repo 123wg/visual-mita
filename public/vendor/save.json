@@ -7,7 +7,8 @@
     "children": [{
         "attrs": {},
         "className": "Layer",
-        "children": [{
+        "children": [
+            {
             "attrs": {
                 "draggable": true,
                 "moduleAttr": [{

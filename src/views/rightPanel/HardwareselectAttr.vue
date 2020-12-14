@@ -1,3 +1,8 @@
+/**
+* @Description: 绑定设备组件
+* @Author: wanggang
+* @Date: 2020-12-14 22:37:12
+**/
 <template>
     <div class=''></div>
 </template>

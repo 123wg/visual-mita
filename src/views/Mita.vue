@@ -45,6 +45,7 @@ const panelListCom = [];
 requireComponents.keys().forEach((fileName) => {
   const componentConfig = requireComponents(fileName);
   const componentName = componentConfig.default.name;
+  console.log(componentName);
   panelListCom.push(componentName);
   Vue.component(componentName, componentConfig.default || componentConfig);
 });
@@ -182,7 +183,7 @@ export default {
 
         .middle {
             box-sizing: border-box;
-            width: 1024px;
+            width: 1100px;
             padding: 5px;
             border: 1px solid red;
 
@@ -192,9 +193,13 @@ export default {
         }
 
         .right {
+            position: absolute;
+            top: 60px;
+            right: 0;
             box-sizing: border-box;
-            width: calc(100% - 1324px);
-            padding: 0 100px;
+            width: calc(100% - 1400px);
+            height: calc(100% - 60px);
+            padding: 0 8px;
             border: 1px solid red;
 
             .right-item {

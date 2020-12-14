@@ -315,7 +315,8 @@ function getStageStr() {
             }), e.on("click", function () {
                 try {} catch (e) {} finally {}
             })
-        }, addModuleTransformEvent: function () {
+        },
+        addModuleTransformEvent: function () {
             var e, t, a, r, i = null,
                 o = null;
             this.stage.on("mousedown touchstart", function (i) {
@@ -392,7 +393,9 @@ function getStageStr() {
                                 padding: 5,
                                 ignoreStroke: !0,
                                 rotationSnaps: [0, 90, 180, 270]
-                            }), stageOper.layer.add(i), i.nodes(h), i.moveToTop()
+                            }), stageOper.layer.add(i),
+                            i.nodes(h),
+                            i.moveToTop()
                         } else try {
                             i.destroy(), i = null
                         } catch (e) {}
@@ -401,7 +404,8 @@ function getStageStr() {
                         o = null, stageOper.layer.draw()
                     }), stageOper.layer.draw()
                 }
-            }), this.stage.on("click tap", function (e) {
+            }),
+            this.stage.on("click tap", function (e) {
                 if (null == o) {
                     if ($("#zjsx")
                         .html(""), e.target === stageOper.stage) {
@@ -487,7 +491,8 @@ function getStageStr() {
                         .length && stageOper.showModuleAttr(i.nodes()[0]), i.moveToTop(), stageOper.layer.draw()
                 }
             })
-        }, addLineEdit: function (e) {
+        },
+        addLineEdit: function (e) {
             var t = e.attrs.moduleType,
                 a = e.find("Circle");
             if (a.each(function (e) {
@@ -495,7 +500,8 @@ function getStageStr() {
             }), stageOper.layer.draw(), "BASELINE" == t) {
                 var r = e.find(".edit_anchor");
                 if (r.length > 0) return;
-                for (var i = e.find(".line1")[0], o = i.points(), n = i.strokeWidth(), l = 0; l < o.length / 2; l++) {
+                for (var i = e.find(".line1")[0], o = i.points(),
+                n = i.strokeWidth(), l = 0; l < o.length / 2; l++) {
                     var d = 2 * l,
                         s = d + 1,
                         c = o[d],
@@ -550,7 +556,8 @@ function getStageStr() {
                 }
                 e.draw()
             }
-        }, addFlowLineEdit: function (e) {
+        },
+         addFlowLineEdit: function (e) {
             var t = e.attrs.moduleType,
                 a = e.find("Circle");
             if (a.each(function (e) {
@@ -558,7 +565,11 @@ function getStageStr() {
             }), stageOper.layer.draw(), "FLOWLINE" == t) {
                 var r = e.find(".edit_anchor");
                 if (r.length > 0) return;
-                for (var i = e.find(".backgroundLine")[0], o = e.find(".dynamicLine")[0], n = i.points(), l = i.strokeWidth(), d = 0; d < n.length / 2; d++) {
+                for (var i = e.find(".backgroundLine")[0],
+                o = e.find(".dynamicLine")[0],
+                n = i.points(),
+                l = i.strokeWidth(),
+                 d = 0; d < n.length / 2; d++) {
                     var s = 2 * d,
                         c = s + 1,
                         u = n[s],
@@ -616,19 +627,22 @@ function getStageStr() {
                 }
                 e.draw()
             }
-        }, removeLineEdit: function (e) {
+        },
+        removeLineEdit: function (e) {
             e.attrs.moduleType;
             var t = e.find("Circle");
             t.each(function (e) {
                 e.destroy()
             }), stageOper.layer.draw()
-        }, removeFlowLineEdit: function (e) {
+        },
+        removeFlowLineEdit: function (e) {
             e.attrs.moduleType;
             var t = e.find("Circle");
             t.each(function (e) {
                 e.destroy()
             }), stageOper.layer.draw()
-        }, addModuleContextmenu: function () {
+        },
+         addModuleContextmenu: function () {
             this.stage.on("contextmenu", function (e) {
                 if (e.evt.preventDefault(), e.target !== stageOper.stage) {
                     currentModule = e.target.getParent(), currentModule_shape = e.target, menuNode.style.display = "initial";
@@ -639,9 +653,11 @@ function getStageStr() {
                         .x + 4 + "px"
                 }
             })
-        }, changeModuleZindex: function (e) {
+        },
+        changeModuleZindex: function (e) {
             "up" == e ? currentModule.moveUp() : "down" == e ? currentModule.moveDown() : "top" == e ? currentModule.moveToTop() : "bottom" == e && currentModule.moveToBottom(), this.layer.draw()
-        }, deleteModule: function (e) {
+        },
+        deleteModule: function (e) {
             $("#zjsx")
                 .html("");
             try {
@@ -652,7 +668,8 @@ function getStageStr() {
                 e.destroy()
             } catch (i) {}
             this.layer.draw()
-        }, deleteModuleAnchor: function () {
+        },
+        deleteModuleAnchor: function () {
             var e = currentModule.attrs.moduleType;
             if ("BASELINE" == e && "edit_anchor" == currentModule_shape.name()) {
                 var t = currentModule.find(".line1")[0],
@@ -1620,7 +1637,8 @@ function getStageStr() {
                     }(sparkling_attr_id, sparkling_attr_value, sparkling_attr_Where, sparkling_attr_Type, sparkling_attr_Name, whereObjArray)
                 }
             }
-        }, setModuleAttr: function (e, t, a, r) {
+        },
+        setModuleAttr: function (e, t, a, r) {
             for (var i = t.split(","), o = 0; o < i.length; o++) {
                 var n, l = i[o],
                     d = e.attrs.moduleType;
@@ -1725,14 +1743,20 @@ function getStageStr() {
                     var w = e.get(".buttonText")[0],
                         p = e.get(".buttonRect")[0];
                     p.width(w.getWidth()), p.height(w.getHeight())
-                } else "BASELINE" === d && "strokeWidth" === a ? 2 > r ? layer.msg("线段粗细不能小于2", {
+                } else
+                "BASELINE" === d && "strokeWidth" === a ? 2 > r ? layer.msg("线段粗细不能小于2", {
                     offset: "t",
                     anim: 6,
                     icon: 2
                 }) : n.setAttr(a, r) : n.setAttr(a, r);
-                "BASELINE" == d ? this.addLineEdit(e) : "FLOWLINE" == d ? this.addFlowLineEdit(e) : this.layer.get(".transformer")[0].nodes([e]), this.layer.draw()
+                "BASELINE" == d ? this.addLineEdit(e) :
+                "FLOWLINE" == d ?
+                this.addFlowLineEdit(e) :
+                 this.layer.get(".transformer")[0].nodes([e]),
+                 this.layer.draw()
             }
-        }, setStageKeyboardEvent: function () {
+        },
+        setStageKeyboardEvent: function () {
             var e = this.stage.container();
             e.tabIndex = 1, e.focus(), e.addEventListener("keydown", function (e) {
                 var t;

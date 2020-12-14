@@ -11,7 +11,7 @@ class StagePlugin {
   }
 
   //   初始化场景方法
-  initStage(width = 1024, height = 768, container = 'container') {
+  initStage(width = 1100, height = 900, container = 'container') {
     this.stage = new Konva.Stage({
       width,
       height,
@@ -79,11 +79,17 @@ class StagePlugin {
       if (moduleType === 'IMAGE'
            || moduleType === 'SVG'
            || moduleType === 'GIF') {
+        this.removeLineEdit();
+        tr.nodes([]);
         tr.nodes([evt.target]);
         layer.draw();
       } else if (moduleType === 'FLOW_LINE') {
+        this.removeLineEdit();
+        tr.nodes([]);
         this.addLineEdit(parent);
       } else {
+        this.removeLineEdit();
+        tr.nodes([]);
         tr.nodes([parent]);
         layer.draw();
       }
@@ -119,6 +125,7 @@ class StagePlugin {
       configList.push(config);
     });
     store.commit('curNodeConList', configList);
+    console.log(configList);
     return configList;
   }
 
@@ -137,7 +144,19 @@ class StagePlugin {
     } else {
       const child = obj.find(`.${attr.attrWhere}`)[0];
       child.setAttr(attr.attrCode, attr.attrValue);
-    //  TODO 判断是否是线条 如果是线条的话 重新改变两条线条的粗细
+      //  TODO 判断是否是线条 如果是线条的话 重新改变两条线条的粗细
+      //   if (obj.getAttrs().moduleType === 'FLOWLINE') {
+      //     console.log('操作线条');
+      //   }
+      const childType = obj.getAttrs().moduleType;
+      const code = attr.attrCode;
+      const value = attr.attrValue;
+      if (childType === 'FLOW_LINE' && code === 'strokeWidth') {
+        const objChild = obj.find('.flowline_front')[0];
+        objChild.setAttr(code, value * 0.8);
+        objChild.setAttr('dash', [value, value * 2]);
+        this.addLineEdit(obj);
+      }
     //  判断是否为其它形状，是其它形状的话重新修改属性
     }
     this.layer.draw();

@@ -1,3 +1,8 @@
+/**
+* @Description: 输入框组件
+* @Author: wanggang
+* @Date: 2020-12-14 22:37:51
+**/
 <template>
     <el-form label-position="left" label-width="120px">
         <el-form-item :label="attr.attrName">
