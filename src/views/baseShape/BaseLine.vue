@@ -46,7 +46,7 @@ export default {
       const staLenth = stage.width();
       const Y = 20;
       const startX = 20;
-      const endX = staLenth / 2;
+      const endX = staLenth / 3;
       console.log(staLenth);
       const lineBc = new Konva.Line({
         points: [startX, Y, endX, Y],

@@ -28,7 +28,7 @@
             </div>
             <div class="right">
                 <div class="right-item" v-for="(item,index) in panelList" :key="index">
-                    <component :is="getBindComp(item.attrType)" :attr.sync="item"></component>
+                    <component :is="getBindComp(item.attrType)" :attr="item"></component>
                 </div>
             </div>
         </div>
@@ -105,6 +105,7 @@ export default {
     *@return:
     */
     stageToJson() {
+    //   console.log(JSON.parse(CONFIG.stage.getStageJson()));
       console.log(CONFIG.stage.getStageJson());
     },
 

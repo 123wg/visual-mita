@@ -134,7 +134,7 @@ class StagePlugin {
   *@param{}
   *@return:
   */
-  setCurCon(attr) {
+  setCurCon(attr, callback) {
     console.log(attr);
     //   FIXME 需要用到节流函数
     const obj = this.curNode;
@@ -160,6 +160,9 @@ class StagePlugin {
     //  判断是否为其它形状，是其它形状的话重新修改属性
     }
     this.layer.draw();
+    if (callback) {
+      callback();
+    }
   }
 
   /**
