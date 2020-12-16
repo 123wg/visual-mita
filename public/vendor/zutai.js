@@ -69,7 +69,8 @@ function getStageStr() {
             this.layer_grid = layer_grid,
             this.initResolution(),
             this.initBackground()
-        }, initResolution: function () {
+        },
+        initResolution: function () {
             for (var e = this.stage.width(), t = this.stage.height(), a = initjson.stageResolution, r = "", i = 0; i < a.length; i++) {
                 var o = a[i],
                     n = o.name,
@@ -102,7 +103,8 @@ function getStageStr() {
                             .val(e), stageOper.setStageBackground(e)
                     }
                 })
-        }, getStageJson: function () {
+        },
+        getStageJson: function () {
             try {
                 var e = stageOper.layer.find("Group");
                 e.each(function (e) {
@@ -111,7 +113,8 @@ function getStageStr() {
                 }), this.layer.find(".transformer")[0].destroy(), this.layer.draw()
             } catch (t) {}
             return this.stage.toJSON()
-        }, setStageSize: function (e) {
+        },
+        setStageSize: function (e) {
             this.stageMaxMin("restore"), this.stage.width(e.width), this.stage.height(e.height), this.layer_grid.clip({
                     x: 0,
                     y: 0,
@@ -120,15 +123,18 @@ function getStageStr() {
                 }), $("#container")
                 .height(e.height), $("#container")
                 .width(e.width), this.stage.draw()
-        }, setStageBackground: function (e) {
+        },
+        setStageBackground: function (e) {
             var t = this.stage.findOne(".layer_background");
             t.width(this.stage.width()), t.height(this.stage.height()), null == e && (e = t.fill()), t.fill(e), this.stage.getLayers()[0].draw()
-        }, setGridColor: function (e) {
+        },
+        setGridColor: function (e) {
             var t = this.stage.find(".gridLine");
             t.each(function (t) {
                 t.stroke(e)
             }), this.stage.getLayers()[0].draw()
-        }, setStageGrid: function (e) {
+        },
+        setStageGrid: function (e) {
             var t = this.stage.find(".gridLine");
             if (!e) return t.each(function (e) {
                 e.destroy()
@@ -200,9 +206,11 @@ function getStageStr() {
                     name: "gridLine"
                 });
             this.stage.getLayers()[0].add(v), this.stage.getLayers()[0].add(b), this.stage.getLayers()[0].add(A), this.stage.getLayers()[0].add(C), this.stage.getLayers()[0].batchDraw()
-        }, setStageDrag: function (e) {
+        },
+        setStageDrag: function (e) {
             this.stage.draggable(e)
-        }, setLeftModulePanel: function (e) {
+        },
+        setLeftModulePanel: function (e) {
             for (var t = "", a = 0; a < e.length; a++) {
                 var r = e[a].groupName,
                     i = e[a].moduleItem;
@@ -218,7 +226,8 @@ function getStageStr() {
             }
             $(".main_page_center .main_page_center_left .layui-tab .layui-tab-content .layui-tab-item .basemodule ")
                 .html(t), this.element.render("collapse", "module_panel")
-        }, setLeftMapStorageModulePanel: function (e) {
+        },
+        setLeftMapStorageModulePanel: function (e) {
             for (var t = "", a = 0; a < e.length; a++) {
                 var r = e[a].groupName,
                     i = e[a].moduleItem;
@@ -234,7 +243,8 @@ function getStageStr() {
             }
             $(".main_page_center .main_page_center_left .layui-tab .layui-tab-content .layui-tab-item .mapStorageModule ")
                 .html(t), this.element.render("collapse", "module_panel")
-        }, addModuleToStage: function (e, t) {
+        },
+         addModuleToStage: function (e, t) {
             var a = Konva.Node.create(e);
             return a.position(t),
             a.dragBoundFunc(function () {}),
@@ -242,7 +252,8 @@ function getStageStr() {
             this.setGroupImage(a),
             this.addModuleEvent(a),
             a.draw(), a
-        }, setGroupImage: function (moduleObject) {
+        },
+        setGroupImage: function (moduleObject) {
             var moduleType = moduleObject.attrs.moduleType;
             if ((-1 != moduleType.indexOf("IMAGES") || -1 != moduleType.indexOf("SVG")) && "undefined" != typeof moduleType) {
                 var urlImage = moduleObject.attrs.imageURL,
@@ -305,7 +316,8 @@ function getStageStr() {
                     })
                 })
             }
-        }, addModuleEvent: function (e) {
+        },
+        addModuleEvent: function (e) {
             e.on("mouseover", function (e) {
                 var t = e.target;
                 document.body.style.cursor = -1 != t.name()
@@ -1800,7 +1812,8 @@ function getStageStr() {
                     }
                 e.preventDefault(), stageOper.layer.batchDraw()
             })
-        }, topButtonFun: function (e) {
+        },
+        topButtonFun: function (e) {
             var t;
             try {
                 t = stageOper.layer.get(".transformer")[0].nodes()
@@ -1831,7 +1844,8 @@ function getStageStr() {
                     "delete" == e && stageOper.deleteModule(i), "up" == e && i.moveUp(), "down" == e && i.moveDown(), "top" == e && i.moveToTop(), "bottom" == e && i.moveToBottom()
                 }
             this.stage.draw()
-        }, stageMaxMin: function (e) {
+        },
+        stageMaxMin: function (e) {
             var t = 1,
                 a = 1;
             "max" == e && (t = this.stage.scale()
@@ -1854,10 +1868,12 @@ function getStageStr() {
                     y: t
                 }), this.stage.draw(), $("#stageProportion")
                 .val(parseInt(100 * t) + "%")
-        }, addMouseListens: function (e) {
+        },
+        addMouseListens: function (e) {
             var t = e.container();
             document.addEventListener && t.addEventListener("DOMMouseScroll", this.scrollFunc, !1), t.onmousewheel = t.onmousewheel = this.scrollFunc
-        }, scrollFunc: function (e) {
+        },
+         scrollFunc: function (e) {
             e = e || window.event, e.wheelDelta ? (e.wheelDelta > 0 && stageOper.stageMaxMin("max"), e.wheelDelta < 0 && stageOper.stageMaxMin("min")) : e.detail && (e.detail > 0 && stageOper.stageMaxMin("max"), e.detail < 0 && stageOper.stageMaxMin("min"))
         }
     }, win.StageOperation = StageOperation

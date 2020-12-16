@@ -105,6 +105,7 @@ class StagePlugin {
   */
   getCurCon() {
     if (!this.curNode) store.commit('curNodeConList', []);
+    console.log(this.curNode);
     const configList = [];
     const obj = this.curNode;
     const attrs = obj.getAttrs().moduleAttr;

@@ -69,6 +69,14 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
+    path: '/lineAnimation',
+    name: 'LineAnimation',
+    component: () => import('@/views/test/LineAnimation.vue'),
+    meta: {
+      title: '补间动画',
+    },
+  },
+  {
     path: '/select',
     name: 'Select',
     component: () => import('@/views/test/Select.vue'),
