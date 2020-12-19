@@ -3,7 +3,7 @@ import ShapeAnimation from '@/common/shapeAnimation';
 class StageClient {
   constructor(stage) {
     this.stage = stage;
-    this.shapeAnimation = new ShapeAnimation();
+    this.shapeAnimation = new ShapeAnimation(stage);
   }
 
   // 舞台初始化
