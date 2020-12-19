@@ -30,7 +30,7 @@
                 <template slot-scope="scope">
                     <el-select v-model="scope.row.devicecode" placeholder="请选择" size="small">
                         <el-option
-                            v-for="item in options"
+                            v-for="item in deviceList"
                             :key="item.value"
                             :label="item.label"
                             :value="item.value">
@@ -71,6 +71,7 @@
 // TODO vue 引用类型数据传递为题 在vue中的数据传递过程中， 是不涉及深拷贝的。
 // 是通过props、vuex、v-bind等方法传递的引用类型都是传递的内存指针
 import { deepClone } from '@/common/util';
+import deviceList from '@/common/deviceData';
 
 export default {
   name: 'HidetableAttr',
@@ -80,23 +81,7 @@ export default {
     return {
       // FIXME 修改为后台请求数据
       selfAttr: [],
-      options: [{
-        value: '选项1',
-        label: '黄金糕',
-      }, {
-        value: '选项2',
-        label: '双皮奶',
-      }, {
-        value: '选项3',
-        label: '蚵仔煎',
-      }, {
-        value: '选项4',
-        label: '龙须面',
-      }, {
-        value: '选项5',
-        label: '北京烤鸭',
-      }],
-      value: '',
+      deviceList,
     };
   },
   computed: {},

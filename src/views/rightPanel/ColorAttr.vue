@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'ColorAttr',
   props: ['attr'],
@@ -22,7 +23,8 @@ export default {
   },
   components: {},
   data() {
-    return {};
+    return {
+    };
   },
   computed: {},
   watch: {},

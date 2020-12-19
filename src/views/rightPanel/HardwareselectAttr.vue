@@ -8,7 +8,7 @@
         <el-form-item :label="selfAttr.attrName">
             <el-select v-model="device" placeholder="请选择">
                 <el-option
-                    v-for="item in options"
+                    v-for="item in deviceList"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
@@ -20,6 +20,7 @@
 
 <script>
 import { deepClone } from '@/common/util';
+import deviceList from '@/common/deviceData';
 
 export default {
   name: 'HardwareselectAttr',
@@ -30,31 +31,16 @@ export default {
     return {
       device: '',
       selfAttr: [], // 组件本身的值
-      options: [{
-        value: '选项1',
-        label: '黄金糕',
-      }, {
-        value: '选项2',
-        label: '双皮奶',
-      }, {
-        value: '选项3',
-        label: '蚵仔煎',
-      }, {
-        value: '选项4',
-        label: '龙须面',
-      }, {
-        value: '选项5',
-        label: '北京烤鸭',
-      }],
-      value: '',
+      deviceList,
     };
   },
   created() {
     this.selfAttr = deepClone(this.attr);
+    this.device = this.selfAttr.attrValue[0] || '';
   },
   watch: {
     device() {
-      this.selfAttr.attrValue = [].push(this.device);
+      this.selfAttr.attrValue = [this.device];
       CONFIG.stage.setCurCon(this.selfAttr);
     },
   },
@@ -62,6 +48,8 @@ export default {
   methods: {},
 };
 </script>
-<style lang='scss' scoped>
-//@import url(); 引入公共css类
+<style>
+.el-select-dropdown__item {
+    text-align: center;
+}
 </style>

@@ -62,6 +62,7 @@ export default {
     };
   },
   mounted() {
+    //  初始化编辑器
     this.initStage();
   },
   computed: {
@@ -126,9 +127,10 @@ export default {
     */
     getBindComp(type) {
       const name = type.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
-      console.log(`${name}Attr`);
+      //   console.log(`${name}Attr`);
       return `${name}Attr`;
     },
+
   },
 };
 </script>
