@@ -193,7 +193,7 @@ class StagePlugin {
     const curPosition = moduleObj.position();
     const attrs = moduleObj.getAttrs();
     const { moduleType } = attrs;
-    if (moduleType === 'IMAGE' || moduleType === 'SVG') { // 一般图片
+    if (moduleType.includes('IMAGE') || moduleType.includes('SVG')) { // 一般图片
       // FIXME 暂时删除所有子节点 不排除后期选择性删除
       moduleObj.destroyChildren();
       Konva.Image.fromURL(attrs.imageUrl, (node) => {

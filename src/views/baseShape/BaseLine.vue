@@ -1,5 +1,5 @@
 /**
-* @Description: 基本线条
+* @Description: 流动线条
 * @Author: wanggang
 * @Date: 2020-12-07 19:40:16
 **/

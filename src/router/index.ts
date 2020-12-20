@@ -151,9 +151,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/client',
     name: 'client',
-    component: () => import('@/views//MitaClient.vue'),
+    component: () => import('@/views/MitaClient.vue'),
     meta: {
       title: '客户端测试',
+    },
+  },
+  {
+    path: '/rotateBlue',
+    name: 'RotateBlue',
+    component: () => import('@/views/baseShape/BaseRotateBlue.vue'),
+    meta: {
+      title: '蓝色旋转组件',
     },
   },
 ];

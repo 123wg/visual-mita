@@ -102,6 +102,27 @@ const ShapeOption = {
   },
   //   图片------------------------------------end
 
+  //   蓝色旋转组件----------------start
+  hasRotateBlueName() {
+    this.commonName();
+  },
+  hasRotateBlueModuleType() {
+    this.commonModuleType('SVG_ROTATE_BLUE');
+  },
+  hasRotateBlueImgUrl(url = '') {
+    this.optionObj.imageUrl = url;
+  },
+  hasRotateBlueHide(attrWhere = 'this') {
+    this.commonHide(attrWhere);
+  },
+  hasRotateBlueSparkling(attrWhere = 'this') {
+    this.commonSparkLing(attrWhere);
+  },
+  hasRotateBlueRotate(attrWhere = 'this') {
+    this.commonRotate(attrWhere);
+  },
+  // 蓝色旋转组件-----------------------end
+
   //   温度计----------------------------------start
   hasTempName() {
     this.commonName();
@@ -159,6 +180,12 @@ const ShapeOption = {
     this.optionObj.sparklingWhere = [{ devicecode: '', min: '', max: '' }];
     this.optionObj.sparklingMethodCall = 'sparklingModule';
     this.createModuleAttr('闪烁条件', 'sparklingWhere', 'sparklingTable', attrWhere);
+  },
+  //   通用旋转条件
+  commonRotate(attrWhere = 'this') {
+    this.optionObj.rotateWhere = [{ devicecode: '', min: '', max: '' }];
+    this.optionObj.rotateMethodCall = 'rotateModule';
+    this.createModuleAttr('旋转条件', 'rotateWhere', 'rotateTable', attrWhere);
   },
   //  通用生成模块配置项
   createModuleAttr(attrName, attrCode, attrType, attrWhere = 'this') {
