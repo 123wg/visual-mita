@@ -6,16 +6,16 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: '',
-  components: {},
-  data() {
-    return {
+    name: '',
+    components: {},
+    data() {
+        return {
 
-    };
-  },
-  computed: {},
-  watch: {},
-  methods: {},
+        };
+    },
+    computed: {},
+    watch: {},
+    methods: {},
 });
 </script>
 <style lang='scss' scoped>

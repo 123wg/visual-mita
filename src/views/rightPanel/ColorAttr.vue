@@ -14,30 +14,30 @@
 <script>
 
 export default {
-  name: 'ColorAttr',
-  props: ['attr'],
-  'attr.attrValue': {
-    handler() {
-      CONFIG.stage.setCurCon(this.attr);
+    name: 'ColorAttr',
+    props: ['attr'],
+    'attr.attrValue': {
+        handler() {
+            CONFIG.stage.setCurCon(this.attr);
+        },
     },
-  },
-  components: {},
-  data() {
-    return {
-    };
-  },
-  computed: {},
-  watch: {},
-  methods: {
+    components: {},
+    data() {
+        return {
+        };
+    },
+    computed: {},
+    watch: {},
+    methods: {
     /**
       *@description: 改变颜色
       *@param{}
       *@return:
       */
-    changeColor() {
-      CONFIG.stage.setCurCon(this.attr);
+        changeColor() {
+            CONFIG.stage.setCurCon(this.attr);
+        },
     },
-  },
 };
 </script>
 <style lang='scss' scoped>

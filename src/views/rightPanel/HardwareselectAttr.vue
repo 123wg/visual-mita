@@ -23,29 +23,29 @@ import { deepClone } from '@/common/util';
 import deviceList from '@/common/deviceData';
 
 export default {
-  name: 'HardwareselectAttr',
-  props: ['attr'],
-  components: {},
+    name: 'HardwareselectAttr',
+    props: ['attr'],
+    components: {},
 
-  data() {
-    return {
-      device: '',
-      selfAttr: [], // 组件本身的值
-      deviceList,
-    };
-  },
-  created() {
-    this.selfAttr = deepClone(this.attr);
-    this.device = this.selfAttr.attrValue[0] || '';
-  },
-  watch: {
-    device() {
-      this.selfAttr.attrValue = [this.device];
-      CONFIG.stage.setCurCon(this.selfAttr);
+    data() {
+        return {
+            device: '',
+            selfAttr: [], // 组件本身的值
+            deviceList,
+        };
     },
-  },
-  computed: {},
-  methods: {},
+    created() {
+        this.selfAttr = deepClone(this.attr);
+        this.device = this.selfAttr.attrValue[0] || '';
+    },
+    watch: {
+        device() {
+            this.selfAttr.attrValue = [this.device];
+            CONFIG.stage.setCurCon(this.selfAttr);
+        },
+    },
+    computed: {},
+    methods: {},
 };
 </script>
 <style>

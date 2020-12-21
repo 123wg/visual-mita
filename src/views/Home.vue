@@ -11,21 +11,21 @@ import Vue from 'vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 
 export default Vue.extend({
-  components: {
+    components: {
     // HelloWorld,
-  },
-  created() {
-    this.test();
-    // console.log(new HelloWorld());
-  },
-  mounted() {
-    new HelloWorld().$mount('#hello-world');
-  },
-  methods: {
-    test() {
-      console.log('11111');
     },
-  },
+    created() {
+        this.test();
+    // console.log(new HelloWorld());
+    },
+    mounted() {
+        new HelloWorld().$mount('#hello-world');
+    },
+    methods: {
+        test() {
+            console.log('11111');
+        },
+    },
 });
 // import { Component, Vue } from 'vue-property-decorator';
 // import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src

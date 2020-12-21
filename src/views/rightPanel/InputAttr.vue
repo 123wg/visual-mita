@@ -13,22 +13,22 @@
 
 <script>
 export default {
-  name: 'InputAttr',
-  components: {},
-  props: ['attr'],
-  computed: {
-  },
-  data() {
-    return {
-    };
-  },
-  watch: {
-    'attr.attrValue': {
-      handler() {
-        CONFIG.stage.setCurCon(this.attr);
-      },
+    name: 'InputAttr',
+    components: {},
+    props: ['attr'],
+    computed: {
     },
-  },
-  methods: {},
+    data() {
+        return {
+        };
+    },
+    watch: {
+        'attr.attrValue': {
+            handler() {
+                CONFIG.stage.setCurCon(this.attr);
+            },
+        },
+    },
+    methods: {},
 };
 </script>

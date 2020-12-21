@@ -11,38 +11,38 @@
 
 <script>
 export default {
-  name: 'Svg',
-  components: {},
-  data() {
-    return {
+    name: 'Svg',
+    components: {},
+    data() {
+        return {
 
-    };
-  },
-  computed: {},
-  watch: {},
-  mounted() {
-    this.init();
-  },
-  methods: {
-    init() {
-      const stage = new Konva.Stage({
-        width: window.innerWidth,
-        height: window.innerHeight,
-        container: 'container',
-      });
-      const layer = new Konva.Layer();
-
-      Konva.Image.fromURL('/img/jiaoban/1.svg', (imageNode) => {
-        layer.add(imageNode);
-        imageNode.setAttrs({
-          width: 150,
-          height: 150,
-        });
-        layer.batchDraw();
-      });
-      stage.add(layer);
+        };
     },
-  },
+    computed: {},
+    watch: {},
+    mounted() {
+        this.init();
+    },
+    methods: {
+        init() {
+            const stage = new Konva.Stage({
+                width: window.innerWidth,
+                height: window.innerHeight,
+                container: 'container',
+            });
+            const layer = new Konva.Layer();
+
+            Konva.Image.fromURL('/img/jiaoban/1.svg', (imageNode) => {
+                layer.add(imageNode);
+                imageNode.setAttrs({
+                    width: 150,
+                    height: 150,
+                });
+                layer.batchDraw();
+            });
+            stage.add(layer);
+        },
+    },
 };
 </script>
 <style lang='scss' scoped>

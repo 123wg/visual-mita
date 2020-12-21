@@ -6,7 +6,13 @@
   ModuleAnimation.prototype = {
     constructor: ModuleAnimation,
     setLineValue(moduleObject, valueObject) {
-      for (var groupObj = moduleObject, layerObj = groupObj.getLayer(), whereStr = groupObj.attrs.where, dataKey = eval(`(${groupObj.attrs.dataKey})`)[0], keyValue = valueObject[dataKey], lineObj = groupObj.get('.dynamicLine')[0], whereObj = eval(`(${whereStr})`), i = 0; i < whereObj.length; i++) {
+      for (var groupObj = moduleObject,
+        layerObj = groupObj.getLayer(),
+        whereStr = groupObj.attrs.where,
+        dataKey = eval(`(${groupObj.attrs.dataKey})`)[0],
+        keyValue = valueObject[dataKey],
+        lineObj = groupObj.get('.dynamicLine')[0],
+        whereObj = eval(`(${whereStr})`), i = 0; i < whereObj.length; i++) {
         const whereObjItem = whereObj[i];
         const { direction } = whereObjItem;
         const { min } = whereObjItem.where;

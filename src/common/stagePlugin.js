@@ -105,7 +105,7 @@ class StagePlugin {
   */
   getCurCon() {
     if (!this.curNode) store.commit('curNodeConList', []);
-    console.log(this.curNode);
+    // console.log(this.curNode);
     const configList = [];
     const obj = this.curNode;
     const attrs = obj.getAttrs().moduleAttr;
@@ -126,7 +126,7 @@ class StagePlugin {
       configList.push(config);
     });
     store.commit('curNodeConList', configList);
-    console.log(configList);
+    // console.log(configList);
     return configList;
   }
 
@@ -136,7 +136,7 @@ class StagePlugin {
   *@return:
   */
   setCurCon(attr, callback) {
-    console.log(attr);
+    // console.log(attr);
     //   FIXME 需要用到节流函数
     const obj = this.curNode;
     if (attr.attrWhere === 'this') {
@@ -197,6 +197,9 @@ class StagePlugin {
       // FIXME 暂时删除所有子节点 不排除后期选择性删除
       moduleObj.destroyChildren();
       Konva.Image.fromURL(attrs.imageUrl, (node) => {
+        const clientRect = node.getClientRect();
+        moduleObj.offsetX(clientRect.width / 2);
+        moduleObj.offsetY(clientRect.height / 2);
         moduleObj.add(node);
         layer.draw();
       });
@@ -240,10 +243,16 @@ class StagePlugin {
           // 先写配置 后期修改为面向对象生成的方式
           imgSrc: 'test.gif',
         });
+        const clientRect = image.getClientRect();
+        moduleObj.offsetX(clientRect.width / 2);
+        moduleObj.offsetY(clientRect.height / 2);
         moduleObj.add(image);
         layer.draw();
       };
     } else if (moduleType === 'FLOW_LINE') {
+      const clientRect = moduleObj.getClientRect();
+      moduleObj.offsetX(clientRect.width / 2);
+      moduleObj.offsetY(clientRect.height / 2);
       layer.draw();
     } else if (moduleType === 'ECHARTS') {
       moduleObj.destroyChildren();
@@ -254,8 +263,8 @@ class StagePlugin {
       dom.style.width = '200px';
       dom.style.height = '200px';
       dom.style.position = 'absolute';
-      dom.style.left = `${stageArea.x + curPosition.x}px`;
-      dom.style.top = `${stageArea.y + curPosition.y}px`;
+      dom.style.left = `${stageArea.x + curPosition.x - 100}px`;
+      dom.style.top = `${stageArea.y + curPosition.y - 100}px`;
       const echarts = vm.$echarts.init(dom);
       echarts.setOption(echartsOption[optionName]());
       stage.container().appendChild(dom);
@@ -265,7 +274,11 @@ class StagePlugin {
           background: '#fff',
         });
         Konva.Image.fromURL(src, (imgNode) => {
+          console.log(imgNode);
           moduleObj.add(imgNode);
+          const clientRect = imgNode.getClientRect();
+          moduleObj.offsetX(clientRect.width / 2);
+          moduleObj.offsetY(clientRect.height / 2);
           layer.add(moduleObj);
           layer.draw();
           stage.container().removeChild(dom);
@@ -273,6 +286,9 @@ class StagePlugin {
       });
       //  创建图片
     } else {
+      const clientRect = moduleObj.getClientRect();
+      moduleObj.offsetX(clientRect.width / 2);
+      moduleObj.offsetY(clientRect.height / 2);
       layer.draw();
     }
   }

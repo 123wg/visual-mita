@@ -157,11 +157,19 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
-    path: '/rotateBlue',
-    name: 'RotateBlue',
-    component: () => import('@/views/baseShape/BaseRotateBlue.vue'),
+    path: '/baseRotate',
+    name: 'BaseRotate',
+    component: () => import('@/views/baseShape/BaseRotate.vue'),
     meta: {
       title: '蓝色旋转组件',
+    },
+  },
+  {
+    path: '/baseText',
+    name: 'baseText',
+    component: () => import('@/views/baseShape/BaseText.vue'),
+    meta: {
+      title: '文字测试',
     },
   },
 ];

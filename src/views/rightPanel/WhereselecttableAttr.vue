@@ -73,88 +73,88 @@
 import { deepClone } from '@/common/util';
 
 export default {
-  name: 'WhereselecttableAttr',
-  props: ['attr'],
-  components: {},
-  data() {
-    return {
-      // FIXME 修改为后台请求数据
-      selfAttr: [],
-      lineAnimationList: [
-        {
-          label: '停止',
-          value: 'stop',
-        },
-        {
-          label: '正向流动',
-          value: 'forward',
-        },
-        {
-          label: '反向流动',
-          value: 'reverse',
-        },
-      ],
-    };
-  },
-  computed: {},
-  created() {
-    this.selfAttr = deepClone(this.attr);
-    this.initParam();
-  },
-  watch: {},
-  methods: {
+    name: 'WhereselecttableAttr',
+    props: ['attr'],
+    components: {},
+    data() {
+        return {
+            // FIXME 修改为后台请求数据
+            selfAttr: [],
+            lineAnimationList: [
+                {
+                    label: '停止',
+                    value: 'stop',
+                },
+                {
+                    label: '正向流动',
+                    value: 'forward',
+                },
+                {
+                    label: '反向流动',
+                    value: 'reverse',
+                },
+            ],
+        };
+    },
+    computed: {},
+    created() {
+        this.selfAttr = deepClone(this.attr);
+        this.initParam();
+    },
+    watch: {},
+    methods: {
     /**
       *@description: 初始化参数
       *@param{}
       *@return:
       */
-    initParam() {
-      this.selfAttr.attrValue.forEach((item) => {
-        if (item.min === '') {
-          item.min = undefined;
-        }
-        if (item.max === '') {
-          item.max = undefined;
-        }
-      });
-    },
-    /**
+        initParam() {
+            this.selfAttr.attrValue.forEach((item) => {
+                if (item.min === '') {
+                    item.min = undefined;
+                }
+                if (item.max === '') {
+                    item.max = undefined;
+                }
+            });
+        },
+        /**
       *@description: 保存数据
       *@param{}
       *@return:
       */
-    saveValue() {
-      CONFIG.stage.setCurCon(this.selfAttr, () => {
-        this.$message({
-          message: '保存成功',
-          type: 'success',
-        });
-      });
-    },
+        saveValue() {
+            CONFIG.stage.setCurCon(this.selfAttr, () => {
+                this.$message({
+                    message: '保存成功',
+                    type: 'success',
+                });
+            });
+        },
 
-    /**
+        /**
     *@description: 添加数据
     *@param{}
     *@return:
     */
-    addValue() {
-      this.selfAttr.attrValue.push({
-        direction: '',
-        min: '',
-        max: '',
-      });
-      this.initParam();
-    },
+        addValue() {
+            this.selfAttr.attrValue.push({
+                direction: '',
+                min: '',
+                max: '',
+            });
+            this.initParam();
+        },
 
-    /**
+        /**
     *@description: 删除数据
     *@param{}
     *@return:
     */
-    delValue(index) {
-      this.selfAttr.attrValue.splice(index, 1);
+        delValue(index) {
+            this.selfAttr.attrValue.splice(index, 1);
+        },
     },
-  },
 };
 </script>
 <style lang='scss' scoped>

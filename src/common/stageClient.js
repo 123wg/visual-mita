@@ -20,10 +20,16 @@ class StageClient {
     //   获取设备设置值后的回调方法
       const attr = node.getAttrs();
       const { methodCall } = attr;
+      const { rotateMethodCall } = attr;
+      console.log(methodCall);
       //   const { hideMethodCall } = attr;
       //   const { sparklingMethodCall } = attr;
       if (that.shapeAnimation[methodCall]) {
         that.shapeAnimation[methodCall](node, data);
+      }
+      if (that.shapeAnimation[rotateMethodCall]) {
+        console.log('进来');
+        that.shapeAnimation[rotateMethodCall](node, data);
       }
     });
   }

@@ -65,5 +65,23 @@ class ShapeAnimation {
       }
     }
   }
+
+  //  旋转动画
+  rotateModule(node, data) {
+    const attrs = node.getAttrs();
+    const bind_rotate = attrs.rotateWhere.filter((item) => item.min !== '' && item.max !== '');
+    for (let i = 0; i < bind_rotate.length; i += 1) {
+      const rotate_attr = bind_rotate[i];
+      const bind_value = data[rotate_attr.devicecode];
+      if (bind_value >= rotate_attr.min && bind_value <= rotate_attr.max) {
+        if (!node.anim) {
+          node.anim = new Konva.Animation(() => {
+            node.rotate(1);
+          }, this.layer);
+          node.anim.start();
+        }
+      } else if (node.anim) node.anim.stop();
+    }
+  }
 }
 export default ShapeAnimation;
