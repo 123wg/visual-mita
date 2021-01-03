@@ -140,6 +140,58 @@ const ShapeOption = {
         this.createModuleAttr('文字颜色', 'fill', 'color', attrWhere);
     },
     // 基础文本--------------------------------end
+
+    // 基础变量--------------------------------start
+    hasBaseVarName() {
+        this.commonName();
+    },
+    hasBaseVarModuleType() {
+        this.commonModuleType('BaseVar');
+    },
+    hasBaseVarBindDevice(attrWhere = 'this') {
+        this.commonBindDevice('setTextValue', attrWhere);
+    },
+    // 文字描述
+    hasBaseVarTextDescription(attrWhere = 'this') {
+        this.createModuleAttr('文字描述', 'text', 'input', attrWhere);
+    },
+    // 文字大小
+    hasBaseVarFontSize(attrWhere = 'this') {
+        this.createModuleAttr('文字大小', 'fontSize', 'input', attrWhere);
+    },
+    // 文字颜色
+    hasBaseVarColor(attrWhere = 'this') {
+        this.createModuleAttr('文字颜色', 'fill', 'color', attrWhere);
+    },
+    // 隐藏条件
+    hasBaseVarHide(attrWhere = 'this') {
+        this.commonHide(attrWhere);
+    },
+    hasBaseVarSparkling(attrWhere = 'this') {
+        this.commonSparkLing(attrWhere);
+    },
+    // 基础变量---------------------------------end
+
+    // 基本线条-------------------------------start
+    hasBaseLineName() {
+        this.commonName();
+    },
+    hasBaseLineModuleType() {
+        this.commonModuleType('BASE_LINE');
+    },
+    hasBaseLineWeight(attrWhere = 'this') {
+        this.createModuleAttr('粗细', 'strokeWidth', 'input', attrWhere);
+    },
+    hasBaseLineColor(attrWhere = 'this') {
+        this.createModuleAttr('颜色', 'stroke', 'color', attrWhere);
+    },
+    // 基本线条-------------------------------end
+    // 基本箭头-------------------------------start
+    // 基本箭头-------------------------------end
+    // 基本圆形--------------------------------start
+    // 基本圆形-------------------------------end
+    // 基本矩形--------------------------------start
+    // 基本矩形--------------------------------end
     //   温度计----------------------------------start
     hasTempName() {
         this.commonName();

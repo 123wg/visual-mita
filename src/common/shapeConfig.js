@@ -3,6 +3,11 @@ const shapeConfig = [
         groupName: '交互组件',
         moduleItem: [
             {
+                imgSrc: '/img/flow_line.png',
+                moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":[""],"methodCall":"setFlowLineValue","where":[{"direction":"","where":{"min":"","max":""}}],"sparklingWhere":[{"devicecode":"","min":"","max":""}],"sparklingMethodCall":"sparklingModule","hideWhere":[{"devicecode":"","min":"","max":""}],"hideMethodCall":"hideModule"},"className":"Group","children":[{"attrs":{"points":[20,20,640,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,640,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}',
+                moduleName: '直线',
+            },
+            {
                 imgSrc: '/img/pool.png',
                 moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"水池高度(峰值)","attrCode":"poolHeight","attrType":"input","attrWhere":"this"},{"attrName":"水池边框粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"pool_border"},{"attrName":"水池边框颜色","attrCode":"stroke","attrType":"color","attrWhere":"pool_border"},{"attrName":"水池背景颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_background"},{"attrName":"水的颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_water"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"POOL","dataKey":[""],"methodCall":"setPoolValue","poolHeight":20,"hideWhere":[{"devicecode":"","min":"","max":""}],"hideMethodCall":"hideModule","sparklingWhere":[{"devicecode":"","min":"","max":""}],"sparklingMethodCall":"sparklingModule"},"className":"Group","children":[{"attrs":{"width":200,"height":300,"fill":"#b3f0ff","name":"pool_background"},"className":"Rect"},{"attrs":{"y":280,"width":200,"height":20,"fill":"#4db8ff","name":"pool_water"},"className":"Rect"},{"attrs":{"points":[0,0,0,300,200,300,200,0],"stroke":"#000000","strokeWidth":6,"name":"pool_border"},"className":"Line"}]}',
                 moduleName: '蓄水池',
@@ -22,6 +27,11 @@ const shapeConfig = [
                 moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"文字","attrCode":"text","attrType":"input","attrWhere":"text"},{"attrName":"字体大小","attrCode":"fontSize","attrType":"input","attrWhere":"text"},{"attrName":"文字颜色","attrCode":"fill","attrType":"color","attrWhere":"text"}],"name":"mita_module_group","moduleType":"Text"},"className":"Group","children":[{"attrs":{"name":"text","text":"文字","fontSize":18,"fontFamily":"Calibri","fill":"#000","align":"center","padding":10},"className":"Text"}]}',
                 moduleName: '文字',
             },
+            {
+                imgSrc: '/img/base_var.png',
+                moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"文字描述","attrCode":"text","attrType":"input","attrWhere":"label"},{"attrName":"文字大小","attrCode":"fontSize","attrType":"input","attrWhere":"label,value"},{"attrName":"文字颜色","attrCode":"fill","attrType":"color","attrWhere":"label,value"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"BaseVar","dataKey":[""],"methodCall":"setTextValue","hideWhere":[{"devicecode":"","min":"","max":""}],"hideMethodCall":"hideModule","sparklingWhere":[{"devicecode":"","min":"","max":""}],"sparklingMethodCall":"sparklingModule"},"className":"Group","children":[{"attrs":{"width":27.796875,"height":26,"fill":" #e6e6e6","stroke":"black","strokeWidth":1,"name":"labelRect"},"className":"Rect"},{"attrs":{"text":"##","fill":"black","padding":5,"fontSize":16,"align":"center","name":"label"},"className":"Text"},{"attrs":{"x":27.796875,"width":27.796875,"height":26,"fill":" #e6e6e6","stroke":"black","strokeWidth":1,"name":"valueRect"},"className":"Rect"},{"attrs":{"x":27.796875,"text":"##","fill":"black","padding":5,"fontSize":16,"align":"center","name":"value"},"className":"Text"}]}',
+                moduleName: '变量',
+            },
         ],
     },
     {
@@ -29,8 +39,23 @@ const shapeConfig = [
         moduleItem: [
             {
                 imgSrc: '/img/base_line.png',
-                moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":[""],"methodCall":"setFlowLineValue","where":[{"direction":"","where":{"min":"","max":""}}],"sparklingWhere":[{"devicecode":"","min":"","max":""}],"sparklingMethodCall":"sparklingModule","hideWhere":[{"devicecode":"","min":"","max":""}],"hideMethodCall":"hideModule"},"className":"Group","children":[{"attrs":{"points":[20,20,640,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,640,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}',
+                moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"baseline_front"},{"attrName":"颜色","attrCode":"stroke","attrType":"color","attrWhere":"baseline_front"}],"name":"mita_module_group","moduleType":"BASE_LINE"},"className":"Group","children":[{"attrs":{"points":[0,20,640,20],"stroke":"#000","lineCap":"round","lineJoin":"round","name":"baseline_front"},"className":"Line"}]}',
                 moduleName: '直线',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '箭头',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '圆形',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '矩形',
             },
         ],
     },
