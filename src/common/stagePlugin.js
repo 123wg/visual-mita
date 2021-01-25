@@ -81,7 +81,8 @@ class StagePlugin {
            || moduleType === 'GIF') {
                 this.removeLineEdit();
                 tr.nodes([]);
-                tr.nodes([evt.target]);
+                // tr.nodes([evt.target]);
+                tr.nodes([parent]);
                 layer.draw();
             } else if (moduleType === 'FLOW_LINE' || moduleType === 'BASE_LINE') {
                 this.removeLineEdit();
@@ -218,12 +219,22 @@ class StagePlugin {
         const { moduleType } = attrs;
         if (moduleType.includes('IMAGE') || moduleType.includes('SVG')) { // 一般图片
             // FIXME 暂时删除所有子节点 不排除后期选择性删除
+            console.log(moduleObj);
             moduleObj.destroyChildren();
             Konva.Image.fromURL(attrs.imageUrl, (node) => {
                 const clientRect = node.getClientRect();
-                moduleObj.offsetX(clientRect.width / 2);
-                moduleObj.offsetY(clientRect.height / 2);
+                // node.setAttr('width', clientRect.width);
+                // node.setAttr('height', clientRect.height);
+                // console.log(clientRect.width);
+                // console.log(clientRect.width > layer.width() / 2 ? layer.width() / 2 : clientRect.width);
+                // moduleObj.setAttrs({
+                //     width: 120,
+                //     height: 200,
+                // });
+                moduleObj.offsetX(node.width() / 2);
+                moduleObj.offsetY(node.height() / 2);
                 moduleObj.add(node);
+                // console.log(moduleObj);
                 layer.draw();
             });
         } else if (moduleType === 'GIF') {

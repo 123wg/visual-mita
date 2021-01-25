@@ -130,6 +130,8 @@ export default {
                             draggable: true,
                         });
                         Konva.Image.fromURL(imgList[j], (node) => {
+                            node.setAttr('width', node.getClientRect().width > 200 ? 200 : node.getClientRect().width);
+                            node.setAttr('height', node.getClientRect().height > 260 ? 260 : node.getClientRect().height);
                             group.add(node);
                             // 判断图片类型
                             ShapeOption.hasImageName();
