@@ -468,9 +468,37 @@ class StagePlugin {
         return this.stage.toJSON();
     }
 
-    //   绘制图形
-    //   drawShape();
+    // 上一层
+    upLevel() {
+        if (this.curNode) {
+            this.curNode.moveUp();
+            this.layer.draw();
+        }
+    }
 
+    // 下一层
+    downLevel() {
+        if (this.curNode) {
+            this.curNode.moveDown();
+            this.layer.draw();
+        }
+    }
+
+    // 置顶
+    topLevel() {
+        if (this.curNode) {
+            this.curNode.moveToTop();
+            this.layer.draw();
+        }
+    }
+
+    // 置底
+    bottomLevel() {
+        if (this.curNode) {
+            this.curNode.moveToBottom();
+            this.layer.draw();
+        }
+    }
     // 设置场景大小方法
     //   setStageSize();
 

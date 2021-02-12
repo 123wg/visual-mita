@@ -7,6 +7,13 @@
     <div class='mita'>
         <div class="header">
             <div class="header-item" @click="stageToJson">保存</div>
+            <div class="header-item" @click="upLevel">上一层</div>
+            <div class="header-item" @click="downLevel">下一层</div>
+            <div class="header-item" @click="topLevel">置顶</div>
+            <div class="header-item" @click="bottomLevel">置底</div>
+            <div class="header-item" @click="remove">删除</div>
+            <div class="header-item" @click="copyNode">复制</div>
+            <div class="headeritem" @click="pasteNode">黏贴</div>
         </div>
         <div class="main">
             <div class="left">
@@ -101,16 +108,6 @@ export default {
         },
 
         /**
-    *@description: 数据持久化
-    *@param{}
-    *@return:
-    */
-        stageToJson() {
-            //   console.log(JSON.parse(CONFIG.stage.getStageJson()));
-            console.log(CONFIG.stage.getStageJson());
-        },
-
-        /**
     *@description: 展示保存的数据
     *@param{}
     *@return:
@@ -131,6 +128,84 @@ export default {
             return `${name}Attr`;
         },
 
+        /**
+        *@description:上一层
+        *@param{}
+        *@return:
+        */
+        upLevel() {
+            const { stage } = CONFIG;
+            stage.upLevel();
+        },
+
+        /**
+        *@description:下一层
+        *@param{}
+        *@return:
+        */
+        downLevel() {
+            const { stage } = CONFIG;
+            stage.downLevel();
+        },
+
+        /**
+        *@description:置顶
+        *@param{}
+        *@return:
+        */
+        topLevel() {
+            const { stage } = CONFIG;
+            stage.topLevel();
+        },
+
+        /**
+        *@description:置底
+        *@param{}
+        *@return:
+        */
+        bottomLevel() {
+            const { stage } = CONFIG;
+            stage.bottomLevel();
+        },
+
+        /**
+       *@description:删除
+       *@param{}
+       *@return:
+       */
+        remove() {
+            const { stage } = CONFIG;
+            console.log(stage);
+        },
+
+        /**
+        *@ description: 数据持久化
+        *@param{}
+        *@return:
+        */
+        stageToJson() {
+            //   console.log(JSON.parse(CONFIG.stage.getStageJson()));
+            console.log(CONFIG.stage.getStageJson());
+        },
+
+        /**
+        *@description: 复制
+        *@param{}
+        *@return:
+        */
+        copyNode() {
+            console.log('复制');
+        },
+
+        /**
+       *@description:黏贴
+       *@param{}
+       *@return:
+       */
+        pasteNode() {
+            console.log('黏贴');
+        },
+
     },
 };
 </script>
@@ -140,9 +215,23 @@ export default {
     height: 100vh;
 
     .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         width: 100%;
         height: 60px;
+        padding: 0 30px;
+        line-height: 60px;
         background: rgba(0, 0, 0, 0.65);
+
+        .header-item {
+            width: 100px;
+            margin: 5px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid white;
+        }
     }
 
     .main {
