@@ -13,7 +13,6 @@
             <div class="header-item" @click="bottomLevel">置底</div>
             <div class="header-item" @click="remove">删除</div>
             <div class="header-item" @click="copyNode">复制</div>
-            <div class="headeritem" @click="pasteNode">黏贴</div>
         </div>
         <div class="main">
             <div class="left">
@@ -38,6 +37,15 @@
                     <component :is="getBindComp(item.attrType)" :attr="item"></component>
                 </div>
             </div>
+        </div>
+        <!-- 上下文菜单 -->
+        <div class="menu" v-if="menuControl.show" :style="{top:menuControl.top+'px',left:menuControl.left+'px'}">
+            <div class="menu-item" @click="menuControlClick('upLevel')">上一层</div>
+            <div class="menu-item" @click="menuControlClick('downLevel')">下一层</div>
+            <div class="menu-item" @click="menuControlClick('topLevel')">置顶</div>
+            <div class="menu-item" @click="menuControlClick('bottomLevel')">置底</div>
+            <div class="menu-item" @click="menuControlClick('remove')">删除</div>
+            <div class="menu-item" @click="menuControlClick('copyNode')">复制</div>
         </div>
     </div>
 </template>
@@ -75,6 +83,9 @@ export default {
     computed: {
         panelList() {
             return this.$store.state.curNodeConList;
+        },
+        menuControl() {
+            return this.$store.state.menuControl;
         },
     },
     watch: {},
@@ -175,7 +186,7 @@ export default {
        */
         remove() {
             const { stage } = CONFIG;
-            console.log(stage);
+            stage.removeNode();
         },
 
         /**
@@ -194,16 +205,22 @@ export default {
         *@return:
         */
         copyNode() {
-            console.log('复制');
+            const { stage } = CONFIG;
+            stage.copyNode();
         },
 
         /**
-       *@description:黏贴
-       *@param{}
-       *@return:
-       */
-        pasteNode() {
-            console.log('黏贴');
+        *@description: 上下文菜方法
+        *@param{}
+        *@return:
+        */
+        menuControlClick(ope) {
+            this[ope]();
+            this.$store.commit('setMenuControl', {
+                show: false,
+                top: 0,
+                left: 0,
+            });
         },
 
     },
@@ -301,6 +318,23 @@ export default {
                 &:nth-child(1) {
                     margin-top: 0;
                 }
+            }
+        }
+    }
+
+    // 右键上下文菜单
+    .menu {
+        position: absolute;
+        text-align: center;
+        background: white;
+
+        .menu-item {
+            padding: 0 20px;
+            margin: 5px 0;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.5);
             }
         }
     }

@@ -1,5 +1,6 @@
 import echartsOption from '@/common/echartsOption';
 import store from '@/store/index';
+import { deepClone } from '@/common/util';
 
 class StagePlugin {
     constructor() {
@@ -96,6 +97,24 @@ class StagePlugin {
             }
             this.transform.moveToTop();
             layer.draw();
+        });
+
+        // 全局右击上下文菜单事件
+        stage.on('contextmenu', (e) => {
+            e.evt.preventDefault();
+            if (e.target === this.stage) return;
+            const parent = e.target.getParent();
+            this.curNode = parent;
+            console.log(e.target);
+            const containerRect = this.stage.container().getBoundingClientRect();
+            const top = containerRect.top + stage.getPointerPosition().y + 4;
+            const left = containerRect.left + stage.getPointerPosition().x + 4;
+            const menuControl = {
+                show: true,
+                top,
+                left,
+            };
+            store.commit('setMenuControl', menuControl);
         });
     }
 
@@ -499,30 +518,31 @@ class StagePlugin {
             this.layer.draw();
         }
     }
-    // 设置场景大小方法
-    //   setStageSize();
 
-    // 设置场景背景方法
-    //   setStageBacground();
-
-    // 获取当前操作的节点
-    //   getCurNode();
+    // 删除
+    removeNode() {
+        if (this.curNode) {
+            this.curNode.destroy();
+            this.layer.draw();
+            this.transform.nodes([]);
+            store.commit('curNodeConList', []);
+        }
+    }
 
     // 节点复制
-    //   copyNode();
+    copyNode() {
+        if (this.curNode) {
+            console.log(this.curNode);
+            const node = this.curNode.clone({
+                x: this.curNode.x() + 10,
+                y: this.curNode.y() + 10,
+            });
+            console.log(node);
+            this.layer.add(node);
+            this.layer.draw();
+        }
+    }
 
-    // 节点黏贴
-    //   pasteNode();
-
-    // 节点上移
-    //   topNode();
-
-    // 节点下移
-//   botomNode();
-    //   节点置顶
-    //   节点置底
-    //   画布放大
-    //   画布缩小
-    //   数据保存
+    // 右键上下文菜单事件
 }
 export default StagePlugin;
