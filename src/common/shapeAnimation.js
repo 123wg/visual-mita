@@ -50,14 +50,14 @@ class ShapeAnimation {
                 if (node.anim) node.anim.stop();
             }
             if (direction === 'forward') {
-                if (node.anim) node.anim.sstop();
+                if (node.anim) node.anim.stop();
                 node.anim = new Konva.Animation((e) => {
                     flow_line.dashOffset(-(e.time / 40));
                 }, this.layer);
                 node.anim.start();
             }
             if (direction === 'reverse') {
-                if (node.anim) node.anim.sstop();
+                if (node.anim) node.anim.stop();
                 node.anim = new Konva.Animation((e) => {
                     flow_line.dashOffset((e.time / 40));
                 }, this.layer);

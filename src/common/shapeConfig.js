@@ -44,8 +44,8 @@ const shapeConfig = [
             },
             {
                 imgSrc: '/img/base_line.png',
-                moduleJson: '',
-                moduleName: '箭头',
+                moduleJson: '{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"填充颜色","attrCode":"fill","attrType":"color","attrWhere":"base_rect"},{"attrName":"边框粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"base_rect"},{"attrName":"边框颜色","attrCode":"stroke","attrType":"color","attrWhere":"base_rect"},{"attrName":"透明度","attrCode":"opacity","attrType":"opacity","attrWhere":"base_rect"}],"name":"mita_module_group","moduleType":"BASE_RECT"},"className":"Group","children":[{"attrs":{"width":100,"height":100,"stroke":"black","strokeWidth":1,"name":"base_rect","fill":""},"className":"Rect"}]}',
+                moduleName: '矩形',
             },
             {
                 imgSrc: '/img/base_line.png',
@@ -55,8 +55,39 @@ const shapeConfig = [
             {
                 imgSrc: '/img/base_line.png',
                 moduleJson: '',
-                moduleName: '矩形',
+                moduleName: '椭圆',
             },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '扇形',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '五角星',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '环形',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '扇形',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '多边形',
+            },
+            {
+                imgSrc: '/img/base_line.png',
+                moduleJson: '',
+                moduleName: '箭头',
+            },
+
         ],
     },
     {

@@ -191,6 +191,30 @@ const ShapeOption = {
     // 基本圆形--------------------------------start
     // 基本圆形-------------------------------end
     // 基本矩形--------------------------------start
+    hasBaseRectName() {
+        this.commonName();
+    },
+
+    hasBaseRectModuleType() {
+        this.commonModuleType('BASE_RECT');
+    },
+
+    hasBaseRectFillColor(attrWhere = 'this') {
+        this.createModuleAttr('填充颜色', 'fill', 'color', attrWhere);
+    },
+
+    hasBaseRectStrokeWidth(attrWhere = 'this') {
+        this.createModuleAttr('边框粗细', 'strokeWidth', 'input', attrWhere);
+    },
+
+    hasBaseRectStroke(attrWhere = 'this') {
+        this.createModuleAttr('边框颜色', 'stroke', 'color', attrWhere);
+    },
+
+    hasBaseRectOpacity(attrWhere = 'this') {
+        this.createModuleAttr('透明度', 'opacity', 'opacity', attrWhere);
+    },
+
     // 基本矩形--------------------------------end
     //   温度计----------------------------------start
     hasTempName() {

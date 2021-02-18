@@ -33,9 +33,39 @@
                 <div class="container" id="container" ref="container"></div>
             </div>
             <div class="right">
-                <div class="right-item" v-for="(item,index) in panelList" :key="index">
-                    <component :is="getBindComp(item.attrType)" :attr="item"></component>
-                </div>
+                <el-tabs v-model="activeName">
+                    <el-tab-pane label="组件设置" name="comSetting">
+                        <div class="right-item" v-for="(item,index) in panelList" :key="index">
+                            <component :is="getBindComp(item.attrType)" :attr="item"></component>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="画布设置" name="canvasSetting">
+                        <el-form ref="form" :model="layerSetting">
+                            <el-form-item label="画布分辨率">
+                                <el-select v-model="layerSetting.ratio" placeholder="请选择" value-key="id">
+                                    <el-option
+                                        v-for="item in ratioList"
+                                        :key="item.id"
+                                        :label="item.label"
+                                        :value="item">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="画布辅助线">
+                                <el-switch
+                                    v-model="layerSetting.guides"
+                                >
+                                </el-switch>
+                            </el-form-item>
+                            <el-form-item label="画布颜色" v-if="layerSetting.guides">
+                                <el-color-picker v-model="layerSetting.guidesColor"></el-color-picker>
+                            </el-form-item>
+                            <el-form-item label="背景颜色">
+                                <el-color-picker v-model="layerSetting.bcColor"></el-color-picker>
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
+                </el-tabs>
             </div>
         </div>
         <!-- 上下文菜单 -->
@@ -74,6 +104,51 @@ export default {
             shapeConfig,
             stageJson: '{"attrs":{"width":1024,"height":768},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"水池高度(峰值)","attrCode":"poolHeight","attrType":"input","attrWhere":"pool_background"},{"attrName":"水池边框粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"pool_border"},{"attrName":"水池边框颜色","attrCode":"stroke","attrType":"color","attrWhere":"pool_border"},{"attrName":"水池背景颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_background"},{"attrName":"水的颜色","attrCode":"fill","attrType":"color","attrWhere":"pool_wrater"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"POOL","dataKey":"[\'\']","methodCall":"setPoolValue","poolHeight":20,"hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","x":256,"y":211},"className":"Group","children":[{"attrs":{"width":200,"height":300,"fill":"yellow","name":"pool_background"},"className":"Rect"},{"attrs":{"y":280,"width":200,"height":20,"fill":"red","name":"pool_water"},"className":"Rect"},{"attrs":{"points":[0,0,0,300,200,300,200,0],"stroke":"black","name":"pool_border"},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"温度","attrCode":"tempValue","attrType":"input","attrWhere":"this"}],"name":"mita_module_group","moduleType":"ECHARTS","dataKey":"[\'\']","methodCall":"setTempValue","tempValue":"0","echartsOption":"tempOption","x":29,"y":189},"className":"Group","children":[{"attrs":{},"className":"Image"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":422,"y":258},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]},{"attrs":{"draggable":true,"moduleAttr":[{"attrName":"绑定设备","attrCode":"dataKey","attrType":"hardwareSelect","attrWhere":"this"},{"attrName":"动画条件","attrCode":"where","attrType":"whereSelectTable","attrWhere":"this"},{"attrName":"线条底色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_bc"},{"attrName":"流动线条颜色","attrCode":"stroke","attrType":"color","attrWhere":"flowline_front"},{"attrName":"粗细","attrCode":"strokeWidth","attrType":"input","attrWhere":"flowline_bc"},{"attrName":"闪烁条件","attrCode":"sparklingWhere","attrType":"sparklingTable","attrWhere":"this"},{"attrName":"隐藏条件","attrCode":"hideWhere","attrType":"hideTable","attrWhere":"this"}],"name":"mita_module_group","moduleType":"FLOW_LINE","dataKey":"[\'\']","methodCall":"setFlowLineValue","where":"[{direction:\'\',where:{min:\'\',max:\'\'}}]","sparkLingWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","sparklingMethodCall":"sparklingModule","hideWhere":"[{devicecode:\'\',min:\'\',max:\'\'}]","hideMethodCall":"hideModule","x":272,"y":148},"className":"Group","children":[{"attrs":{"points":[20,20,470,20],"stroke":"#6699cc","strokeWidth":20,"lineCap":"round","lineJoin":"round","name":"flowline_bc"},"className":"Line"},{"attrs":{"points":[20,20,470,20],"stroke":"yellow","strokeWidth":15,"lineCap":"round","lineJoin":"round","name":"flowline_front","dash":[33,25]},"className":"Line"}]}]}]}',
             selectAttr: 'InputAttr',
+            activeName: 'canvasSetting',
+            // 画布设置
+            layerSetting: {
+                // 分辨率
+                ratio: {
+                    id: '000',
+                    label: '1024*768(电脑)',
+                    value: {
+                        width: 1024,
+                        height: 768,
+                    },
+                },
+                // 辅助线
+                guides: false,
+                // 辅助线颜色
+                guidesColor: '',
+                // 背景颜色
+                bcColor: 'rgba(255, 255, 255, 1)',
+            },
+            ratioList: [
+                {
+                    id: '000',
+                    label: '1024*768(电脑)',
+                    value: {
+                        width: 1024,
+                        height: 768,
+                    },
+                },
+                {
+                    id: '111',
+                    label: '1366*768(电脑)',
+                    value: {
+                        width: 1366,
+                        height: 768,
+                    },
+                },
+                {
+                    id: '222',
+                    label: '1920*1080(电脑)',
+                    value: {
+                        width: 1920,
+                        height: 1080,
+                    },
+                },
+            ],
         };
     },
     mounted() {

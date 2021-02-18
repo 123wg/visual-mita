@@ -159,7 +159,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/baseRect',
         name: 'baseRect',
-        component: () => import('@/views/baseShape/BaseLine.vue'),
+        component: () => import('@/views/baseShape/BaseRect.vue'),
         meta: {
             title: '矩形',
         },

@@ -16,18 +16,20 @@
 export default {
     name: 'ColorAttr',
     props: ['attr'],
-    'attr.attrValue': {
-        handler() {
-            CONFIG.stage.setCurCon(this.attr);
-        },
-    },
+
     components: {},
     data() {
         return {
         };
     },
     computed: {},
-    watch: {},
+    watch: {
+        'attr.attrValue': {
+            handler() {
+                CONFIG.stage.setCurCon(this.attr);
+            },
+        },
+    },
     methods: {
     /**
       *@description: 改变颜色

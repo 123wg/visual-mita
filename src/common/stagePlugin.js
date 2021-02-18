@@ -141,7 +141,7 @@ class StagePlugin {
                 config.attrValue = obj.getAttr(config.attrCode);
             } else {
                 const child = obj.find(`.${item.attrWhere}`)[0];
-                config.attrValue = child.getAttrs()[item.attrCode];
+                config.attrValue = child.getAttr(item.attrCode);
             }
             configList.push(config);
         });
@@ -304,8 +304,10 @@ class StagePlugin {
             };
         } else if (moduleType === 'FLOW_LINE' || moduleType === 'BASE_LINE') {
             const clientRect = moduleObj.getClientRect();
-            moduleObj.offsetX(clientRect.width / 2);
-            moduleObj.offsetY(clientRect.height / 2);
+            // FIXME 恢复场景中的数据时不需要此操作
+            // moduleObj.offsetX(clientRect.width / 2);
+            // moduleObj.offsetY(clientRect.height / 2);
+            console.log(moduleObj);
             layer.draw();
         } else if (moduleType === 'ECHARTS') {
             moduleObj.destroyChildren();
