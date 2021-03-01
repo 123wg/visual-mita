@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="middle">
-                <div class="container" id="container" ref="container"></div>
+                <div class="container" id="container" ref="container" :style="{width:layerSetting.ratio.value.width+'px',height:layerSetting.ratio.value.height+'px'}"></div>
             </div>
             <div class="right">
                 <el-tabs v-model="activeName">
@@ -42,7 +42,7 @@
                     <el-tab-pane label="画布设置" name="canvasSetting">
                         <el-form ref="form" :model="layerSetting">
                             <el-form-item label="画布分辨率">
-                                <el-select v-model="layerSetting.ratio" placeholder="请选择" value-key="id">
+                                <el-select v-model="layerSetting.ratio" placeholder="请选择" value-key="id" @change="resizeStageSize">
                                     <el-option
                                         v-for="item in ratioList"
                                         :key="item.id"
@@ -173,7 +173,8 @@ export default {
         initStage() {
             // FIXME 暂时挂载到当前组件中 后期移出 防止库中数据影响性能
             CONFIG.stage = new StagePlugin();
-            CONFIG.stage.initStage();
+            const stageSize = this.layerSetting.ratio.value;
+            CONFIG.stage.initStage(stageSize.width, stageSize.height);
         },
         /**
       *@description: 测试数据导入回显
@@ -298,6 +299,16 @@ export default {
             });
         },
 
+        /**
+        *@description: 改变画布大小
+        *@param{}
+        *@return:
+        */
+        resizeStageSize() {
+            const size = this.layerSetting.ratio.value;
+            CONFIG.stage.resizeSize(size);
+        },
+
     },
 };
 </script>
@@ -369,6 +380,7 @@ export default {
             box-sizing: border-box;
             width: 1100px;
             padding: 5px;
+            overflow: auto;
             border: 1px solid red;
 
             .container {

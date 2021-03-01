@@ -4,7 +4,7 @@ import { deepClone } from '@/common/util';
 
 class StagePlugin {
     constructor() {
-    // 当前操作的节点
+        // 当前操作的节点
         this.curNode = null;
         this.stage = null;
         this.layer = null;
@@ -115,6 +115,31 @@ class StagePlugin {
                 left,
             };
             store.commit('setMenuControl', menuControl);
+        });
+
+        // 鼠标滚轮事件
+        stage.on('wheel', (e) => {
+            // e.preventDefault();
+            const scale = this.stage.scale();
+            if (e.evt.wheelDelta > 0) {
+                console.log('1111');
+                // 放大操作
+                this.stage.scale({
+                    x: scale.x + 0.05,
+                    y: scale.y + 0.05,
+                });
+                this.stage.draw();
+            } else {
+                console.log('222');
+                // 放大操作
+                this.stage.scale({
+                    x: scale.x - 0.05,
+                    y: scale.y - 0.05,
+                });
+                this.stage.draw();
+            }
+
+            // console.log(this.stage.scale());
         });
     }
 
@@ -545,6 +570,11 @@ class StagePlugin {
         }
     }
 
-    // 右键上下文菜单事件
+    // 重置画布大小
+    resizeSize(size) {
+        this.stage.width(size.width);
+        this.stage.height(size.height);
+        this.layer.draw();
+    }
 }
 export default StagePlugin;
